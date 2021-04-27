@@ -7,3 +7,5 @@ It's also possible to create multiple builds at the same time up to 12
 `$$info`: Prints info about the bot and commands  
 `$$genbuild`: Generates you a new build  
 `$$genbuild <number>`: Generates you multiple builds (max 12)  
+`$$genwiiubuild`: Generates you a new build (WiiU parts only)  
+`$$genwiiubuild <number>`: Generates you multiple builds (max 12) (WiiU parts only)  
