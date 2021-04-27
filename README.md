@@ -1,4 +1,4 @@
-# Mario Kart 8 Deluxre Random Build Generator
+# Mario Kart 8 Deluxe Random Build Generator
 
 This discord bot creates you a random build containing a set of 1 character, 1 body, 1 tire and 1 glider.  
 It's also possible to create multiple builds at the same time up to 12
