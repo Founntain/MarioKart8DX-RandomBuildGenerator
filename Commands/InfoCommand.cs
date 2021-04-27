@@ -14,11 +14,13 @@ namespace mk8bot.Commands{
                 Url = "https://twitter.com/FounntainXD"
             };
 
-            embed.AddField("Generate one build", $"{prefix}genbuild", true);
-            embed.AddField("Generate multiple builds (max. 12)", $"{prefix}genbuild <number>", true);
-            embed.AddField("Deluxe only?", $"The bot was made mainly for the switch version. However if you get a build with switch exclusive parts etc. just generate a new one!");
-            
-            embed.AddField("Thank you!", $"Thank you for using the bot. If you like my work I'm happy if you simply say thank you etc. {new Emoji("❤")}");
+            embed.AddField("Generate one build", $"{prefix}genbuild");
+            embed.AddField("Generate multiple builds (max. 12)", $"{prefix}genbuild <number>");
+
+            embed.AddField("Generate one build (WiiU only parts)", $"{prefix}genwiiubuild");
+            embed.AddField("Generate multiple builds (max. 12) (WiiU only parts)", $"{prefix}genwiiubuild <number>");
+
+            embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")}");
 
             embed.Footer = new EmbedFooterBuilder{
                 IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
