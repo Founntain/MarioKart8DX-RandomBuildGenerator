@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace mk8bot
 {
-    class Program
+    public class Program
     {
         private DiscordSocketClient Client;
         private Config Config;
@@ -51,10 +51,33 @@ namespace mk8bot
             if(!msg.Content.StartsWith(Config.Prefix))
                 return Task.CompletedTask;
 
-            if(msg.Content.ToLower() == $"{Config.Prefix}getbuild")
+            var args = msg.Content.Split(" ").ToList();
+            args.RemoveAt(0);
+
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genbuild"))
             {
-                using(var stream = new BuildGenerator().Generate()){
-                    msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", "Your build");
+                var buildGenerator = new BuildGenerator();
+
+                if(args.Count == 0){
+                    using(var stream = buildGenerator.Generate()){
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", "Your build");
+                    }
+
+                    return Task.CompletedTask;
+                }
+
+                if(args.Count == 1){
+                    if(int.TryParse(args[0], out var x)){
+                        if(x > 12){
+                            msg.Channel.SendMessageAsync("Can't generate more than 12 builds at the same time!");
+                            return Task.CompletedTask;
+                        }
+
+                        using(var stream = buildGenerator.Generate(x).Result){
+                            msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", $"Your {x} builds");
+                            return Task.CompletedTask;
+                        }
+                    }
                 }
             }
 
