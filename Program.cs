@@ -25,6 +25,7 @@ namespace mk8bot
             Client = new DiscordSocketClient();
             Client.Log += OnLog;
             Client.MessageReceived += OnMessageReceived;
+            Client.Connected += OnConnected;
 
             var token = this.Config.Token;
 
@@ -50,6 +51,13 @@ namespace mk8bot
         private Task OnMessageReceived(SocketMessage msg){
             if(!msg.Content.StartsWith(Config.Prefix))
                 return Task.CompletedTask;
+
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}info"))
+            {
+
+                new InfoCommand().PrintInfo(msg, Config.Prefix, Client.Guilds.Count);
+                return Task.CompletedTask;
+            }
 
             var args = msg.Content.Split(" ").ToList();
             args.RemoveAt(0);
@@ -80,6 +88,12 @@ namespace mk8bot
                     }
                 }
             }
+
+            return Task.CompletedTask;
+        }
+
+        private Task OnConnected(){
+            Client.SetGameAsync("$$info for help", type: ActivityType.Watching);
 
             return Task.CompletedTask;
         }
