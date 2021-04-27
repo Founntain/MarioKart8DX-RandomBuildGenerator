@@ -54,7 +54,6 @@ namespace mk8bot
 
             if(msg.Content.ToLower().StartsWith($"{Config.Prefix}info"))
             {
-
                 new InfoCommand().PrintInfo(msg, Config.Prefix, Client.Guilds.Count);
                 return Task.CompletedTask;
             }
@@ -82,6 +81,33 @@ namespace mk8bot
                         }
 
                         using(var stream = buildGenerator.Generate(x).Result){
+                            msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", $"Your {x} builds");
+                            return Task.CompletedTask;
+                        }
+                    }
+                }
+            }
+
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiubuild"))
+            {
+                var buildGenerator = new BuildGenerator();
+
+                if(args.Count == 0){
+                    using(var stream = buildGenerator.Generate(true)){
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", "Your build");
+                    }
+
+                    return Task.CompletedTask;
+                }
+
+                if(args.Count == 1){
+                    if(int.TryParse(args[0], out var x)){
+                        if(x > 12){
+                            msg.Channel.SendMessageAsync("Can't generate more than 12 builds at the same time!");
+                            return Task.CompletedTask;
+                        }
+
+                        using(var stream = buildGenerator.Generate(x, true).Result){
                             msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", $"Your {x} builds");
                             return Task.CompletedTask;
                         }
