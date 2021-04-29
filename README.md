@@ -11,4 +11,4 @@ All commands are case **insensitive**
 ## Screenshots
 ![](https://x.founntain.de/DbOKF5JI.png)  
 ![](https://x.founntain.de/UP8vqy2r.png)  
-![](https://x.founntain.de/2MDmcYab.png)
+![](https://x.founntain.de/0fBhGGic.png)
