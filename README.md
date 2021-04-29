@@ -5,7 +5,7 @@ It's also possible to create multiple builds at the same time up to 12
 
 ## Commands
 `$$info`: Prints info about the bot and commands  
-`$$help`: Print help for default generation commands
+`$$help`: Print help for default generation commands  
 `$$helpWiiU`: Print help for WiiU generation commands  
 All commands are case **insensitive**
 ## Screenshots
