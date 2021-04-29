@@ -16,7 +16,7 @@ namespace mk8bot.Commands{
                 }
 
                 using(var stream = buildGenerator.GenerateWithNames(args, true).Result){
-                    msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{amount}build.png", embed: Program.GetBuildEmbed(amount));
+                    msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{amount}build.png", embed: Program.GetBuildEmbed(amount, true));
                     return;
                 }
             }
