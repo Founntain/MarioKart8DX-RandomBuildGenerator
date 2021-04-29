@@ -14,11 +14,10 @@ namespace mk8bot.Commands{
                 Url = "https://twitter.com/FounntainXD"
             };
 
-            embed.AddField("Generate one build", $"{prefix}genbuild");
-            embed.AddField("Generate multiple builds (max. 12)", $"{prefix}genbuild <number>");
+            embed.AddField("Need help?", $"You find a description of all commands by using the help commands listed below.\n**ALL commands are case *insensitive* **", false);
 
-            embed.AddField("Generate one build (WiiU only parts)", $"{prefix}genwiiubuild");
-            embed.AddField("Generate multiple builds (max. 12) (WiiU only parts)", $"{prefix}genwiiubuild <number>");
+            embed.AddField("Show all default generation commands", $"{prefix}help", true);
+            embed.AddField("Show all WiiU generation commands", $"{prefix}helpWiiU", true);
 
             embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")}");
 

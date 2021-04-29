@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using mk8bot.Classes;
 using mk8bot.Commands;
 using Newtonsoft.Json;
 
@@ -58,70 +59,62 @@ namespace mk8bot
                 return Task.CompletedTask;
             }
 
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}helpwiiu"))
+            {
+                new HelpWiiUCommand().PrintHelp(msg, Config.Prefix, Client.Guilds.Count);
+                return Task.CompletedTask;
+            }
+
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}help"))
+            {
+                new HelpCommand().PrintHelp(msg, Config.Prefix, Client.Guilds.Count);
+                return Task.CompletedTask;
+            }
+
             var args = msg.Content.Split(" ").ToList();
             args.RemoveAt(0);
 
             if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genbuild"))
             {
-                var buildGenerator = new BuildGenerator();
-
-                if(args.Count == 0){
-                    using(var stream = buildGenerator.Generate()){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", "Your build");
-                    }
-
-                    return Task.CompletedTask;
-                }
-
-                if(args.Count == 1){
-                    if(int.TryParse(args[0], out var x)){
-                        if(x > 12){
-                            msg.Channel.SendMessageAsync("Can't generate more than 12 builds at the same time!");
-                            return Task.CompletedTask;
-                        }
-
-                        using(var stream = buildGenerator.Generate(x).Result){
-                            msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", $"Your {x} builds");
-                            return Task.CompletedTask;
-                        }
-                    }
-                }
+                new GenBuildCommand().ExecuteCommand(msg, args);
             }
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiubuild"))
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiu"))
             {
-                var buildGenerator = new BuildGenerator();
+                new GenWiiUBuildCommand().ExecuteCommand(msg, args);
+            }
 
-                if(args.Count == 0){
-                    using(var stream = buildGenerator.Generate(true)){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", "Your build");
-                    }
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}gennames"))
+            {
+                new GenNamesBuildCommand().ExecuteCommand(msg, args);
+            }
 
-                    return Task.CompletedTask;
-                }
-
-                if(args.Count == 1){
-                    if(int.TryParse(args[0], out var x)){
-                        if(x > 12){
-                            msg.Channel.SendMessageAsync("Can't generate more than 12 builds at the same time!");
-                            return Task.CompletedTask;
-                        }
-
-                        using(var stream = buildGenerator.Generate(x, true).Result){
-                            msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", $"Your {x} builds");
-                            return Task.CompletedTask;
-                        }
-                    }
-                }
+            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiunames"))
+            {
+                new GenWiiUNamesBuildCommand().ExecuteCommand(msg, args);
             }
 
             return Task.CompletedTask;
         }
 
         private Task OnConnected(){
-            Client.SetGameAsync("$$info for help", type: ActivityType.Watching);
+            Client.SetGameAsync($"{Config.Prefix}info for help", type: ActivityType.Watching);
 
             return Task.CompletedTask;
+        }
+
+        public static Embed GetBuildEmbed(int amount, bool wiiu = false){
+            var embed = new EmbedBuilder{
+                ImageUrl = amount > 1 ? $"attachment://{amount}build.png" : "attachment://build.png",
+                Color = wiiu ? new Color(0x00AEFF) : new Color(0xFF0000)
+            };
+
+            embed.Footer = new EmbedFooterBuilder{
+                IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
+                Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}"
+            };
+
+            return embed.Build();
         }
     }
 }
