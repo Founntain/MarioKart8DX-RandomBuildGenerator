@@ -7,7 +7,10 @@ It's also possible to create multiple builds at the same time up to 12
 `$$info`: Prints info about the bot and commands  
 `$$help`: Print help for default generation commands  
 `$$helpWiiU`: Print help for WiiU generation commands  
-All commands are case **insensitive**
+All commands are case **insensitive**  
+
+If you add `[ni]` *(yes with the [])* somewhere as a parameter you can exclude inline bikes in the generation
+
 ## Screenshots
 ![](https://x.founntain.de/DbOKF5JI.png)  
 ![](https://x.founntain.de/UP8vqy2r.png)  
