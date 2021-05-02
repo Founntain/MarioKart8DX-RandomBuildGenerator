@@ -19,6 +19,8 @@ namespace mk8bot.Commands{
             embed.AddField("Show all default generation commands", $"{prefix}help", true);
             embed.AddField("Show all WiiU generation commands", $"{prefix}helpWiiU", true);
 
+            embed.AddField("Optional Parameters", $"If you include a `[ni]` inside of your parameters. The bot will generate a (or multiple) build(s) **excluding** inline bikes", false);
+
             embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")}");
 
             embed.Footer = new EmbedFooterBuilder{

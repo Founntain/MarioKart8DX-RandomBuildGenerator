@@ -103,7 +103,7 @@ namespace mk8bot
             return Task.CompletedTask;
         }
 
-        public static Embed GetBuildEmbed(int amount, bool wiiu = false){
+        public static Embed GetBuildEmbed(int amount, bool wiiu = false, bool excludeInline = false){
             var embed = new EmbedBuilder{
                 ImageUrl = amount > 1 ? $"attachment://{amount}build.png" : "attachment://build.png",
                 Color = wiiu ? new Color(0x00AEFF) : new Color(0xFF0000)
@@ -111,7 +111,7 @@ namespace mk8bot
 
             embed.Footer = new EmbedFooterBuilder{
                 IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
-                Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}"
+                Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}{(excludeInline ? " • Inline Bikes Excluded" : string.Empty)}"
             };
 
             return embed.Build();

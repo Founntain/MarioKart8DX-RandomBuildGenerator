@@ -12,13 +12,13 @@ namespace mk8bot.Classes{
         private readonly int DefaultCharSize = 128;
         private readonly int DefaultPartSize = 200;
 
-        public MemoryStream Generate(bool wiiU = false){
+        public MemoryStream Generate(bool wiiU = false, bool excludeInline = false){
             var stream = new MemoryStream();
 
-            var character = Image.FromFile(GetRandomCharacter(wiiU));
-            var vehicle = Image.FromFile(GetRandomVehicle(wiiU));
-            var tires = Image.FromFile(GetRandomTire(wiiU));
-            var glider = Image.FromFile(GetRandomGlider(wiiU));
+            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
+            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
+            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
+            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
 
             using(var bitmap = new Bitmap(DefaultPartSize * 3, DefaultHeight * 2)){
                 using(var g = Graphics.FromImage(bitmap)){
@@ -34,7 +34,7 @@ namespace mk8bot.Classes{
             };
         }
 
-        public async Task<MemoryStream> Generate(int amount, bool wiiU = false){
+        public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false){
             return await Task.Run(() => {
                 var stream = new MemoryStream();
 
@@ -42,10 +42,10 @@ namespace mk8bot.Classes{
                     using(var g = Graphics.FromImage(bitmap)){
                         for(var y = 0; y < amount; y++){
 
-                            var character = Image.FromFile(GetRandomCharacter(wiiU));
-                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU));
-                            var tires = Image.FromFile(GetRandomTire(wiiU));
-                            var glider = Image.FromFile(GetRandomGlider(wiiU));
+                            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
+                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
+                            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
+                            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
 
                             g.DrawString($"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
 
@@ -63,7 +63,7 @@ namespace mk8bot.Classes{
             });
         }
 
-        public async Task<MemoryStream> GenerateWithNames(IList<string> names, bool wiiU = false){
+        public async Task<MemoryStream> GenerateWithNames(IList<string> names, bool wiiU = false, bool excludeInline = false){
             return await Task.Run(() => {
                 var amount = names.Count;
                 var stream = new MemoryStream();
@@ -72,10 +72,10 @@ namespace mk8bot.Classes{
                     using(var g = Graphics.FromImage(bitmap)){
                         for(var y = 0; y < amount; y++){
 
-                            var character = Image.FromFile(GetRandomCharacter(wiiU));
-                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU));
-                            var tires = Image.FromFile(GetRandomTire(wiiU));
-                            var glider = Image.FromFile(GetRandomGlider(wiiU));
+                            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
+                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
+                            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
+                            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
 
                             g.DrawString(names.FirstOrDefault() ?? $"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
 
@@ -95,7 +95,7 @@ namespace mk8bot.Classes{
             });
         }
 
-        private string GetRandomImageFromDirectory(string dir, bool wiiU = false){
+        private string GetRandomImageFromDirectory(string dir, bool wiiU, bool excludeInline){
             var files = Directory.GetFiles(dir);
             var random = new Random();
 
@@ -103,33 +103,35 @@ namespace mk8bot.Classes{
                 var value = random.Next(0, files.Length - 1);
                 var part = files[value];
 
-                if(!wiiU)
+                if(!wiiU && !excludeInline)
                     return part;
 
                 var pathToCheck = Path.GetFileName(part);
 
-                if(GetDeluxeOnlyParts().Any(x => x.ToLower() == pathToCheck)){
-                    continue;
-                }
-
+                if(wiiU)
+                    if(GetDeluxeOnlyParts().Any(x => x.ToLower() == pathToCheck)) continue;
+                
+                if(excludeInline)
+                    if(GetInlineBikes().Any(x => x.ToLower() == pathToCheck)) continue;
+                
                 return part;
             }
         }
 
-        private string GetRandomCharacter(bool wiiU = false){
-            return GetRandomImageFromDirectory("resources/chars", wiiU);
+        private string GetRandomCharacter(bool wiiU = false, bool excludeInline = false){
+            return GetRandomImageFromDirectory("resources/chars", wiiU, excludeInline);
         }
 
-        private string GetRandomVehicle(bool wiiU = false){
-            return GetRandomImageFromDirectory("resources/parts/vehicles", wiiU);
+        private string GetRandomVehicle(bool wiiU = false, bool excludeInline = false){
+            return GetRandomImageFromDirectory("resources/parts/vehicles", wiiU, excludeInline);
         }
 
-        private string GetRandomTire(bool wiiU = false){
-            return GetRandomImageFromDirectory("resources/parts/tires", wiiU);
+        private string GetRandomTire(bool wiiU = false, bool excludeInline = false){
+            return GetRandomImageFromDirectory("resources/parts/tires", wiiU, excludeInline);
         }
 
-        private string GetRandomGlider(bool wiiU = false){
-            return GetRandomImageFromDirectory("resources/parts/gliders", wiiU);
+        private string GetRandomGlider(bool wiiU = false, bool excludeInline = false){
+            return GetRandomImageFromDirectory("resources/parts/gliders", wiiU, excludeInline);
         }
 
         private ICollection<string> GetDeluxeOnlyParts(){
@@ -150,6 +152,16 @@ namespace mk8bot.Classes{
                 "bowserjr.png",
                 "inklingfemale.png",
                 "inklingmale.png"
+            };
+        }
+
+        private ICollection<string> GetInlineBikes(){
+            return new List<string>(){
+                "comet.png",
+                "sportbike.png",
+                "jetbike.png",
+                "yoshibike.png",
+                "mastercycle.png"
             };
         }
     }
