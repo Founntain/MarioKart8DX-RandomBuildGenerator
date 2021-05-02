@@ -3,12 +3,19 @@
 This discord bot creates you a random build containing a set of 1 character, 1 body, 1 tire and 1 glider.  
 It's also possible to create multiple builds at the same time up to 12
 
+## Sounds cool. How can I add this bot to my server?
+Glad that you ask 😄  
+If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836318982080167946&permissions=117760&scope=bot) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
+
+Have fun 😃
+
 ## Commands
 `$$info`: Prints info about the bot and commands  
 `$$help`: Print help for default generation commands  
 `$$helpWiiU`: Print help for WiiU generation commands  
 All commands are case **insensitive**  
 
+#### Optional parameters
 If you add `[ni]` *(yes with the [])* somewhere as a parameter you can exclude inline bikes in the generation
 
 ## Screenshots
