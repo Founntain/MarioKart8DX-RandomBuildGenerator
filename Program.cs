@@ -41,7 +41,7 @@ namespace mk8bot
         
         private async Task OnReady()
         {
-            var commandRegisterer = new Classes.CommandRegister(_client);
+            var commandRegisterer = new CommandRegisterer(_client);
 
             await commandRegisterer.RegisterCommands();
         }
