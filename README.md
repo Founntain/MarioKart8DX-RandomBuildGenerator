@@ -5,7 +5,7 @@ It's also possible to create multiple builds at the same time up to 12
 
 ## Sounds cool. How can I add this bot to my server?
 Glad that you ask 😄  
-If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836611615734497310&permissions=19456&scope=applications.commands%20bot) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
+If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836318982080167946&permissions=19456&scope=bot%20applications.commands) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
 
 Have fun 😃
 ## Commands
