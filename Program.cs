@@ -31,7 +31,7 @@ namespace mk8bot
 
             _client.SlashCommandExecuted += SlashCommandHandler;
 
-            var token = this._config.Token;
+            var token = _config.Token;
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
@@ -41,7 +41,7 @@ namespace mk8bot
         
         private async Task OnReady()
         {
-            var commandRegisterer = new CommandRegisterer(_client);
+            var commandRegisterer = new Classes.CommandRegister(_client);
 
             await commandRegisterer.RegisterCommands();
         }
