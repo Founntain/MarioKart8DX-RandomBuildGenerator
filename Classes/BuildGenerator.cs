@@ -12,7 +12,7 @@ namespace mk8bot.Classes{
         private readonly int DefaultCharSize = 128;
         private readonly int DefaultPartSize = 200;
 
-        public MemoryStream Generate(bool wiiU = false, bool excludeInline = false){
+        public async Task<MemoryStream> Generate(bool wiiU = false, bool excludeInline = false){
             var stream = new MemoryStream();
 
             var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
@@ -47,7 +47,8 @@ namespace mk8bot.Classes{
                             var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
                             var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
 
-                            g.DrawString($"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
+                            if(amount > 1)
+                                g.DrawString($"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
 
                             g.DrawImage(character, 0, 0 + (DefaultCharSize * 2) * y);
                             g.DrawImage(vehicle, 0, DefaultHeight + ((DefaultHeight * 2) * y));

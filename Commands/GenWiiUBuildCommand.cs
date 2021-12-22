@@ -12,7 +12,7 @@ namespace mk8bot.Commands{
             switch(args.Count){
                 case 0:
                     using(var stream = buildGenerator.Generate(true)){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true));
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.Result.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true));
                     }
 
                     return;
@@ -35,7 +35,7 @@ namespace mk8bot.Commands{
                     }
 
                     using(var stream = buildGenerator.Generate(true, true)){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true, true));
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.Result.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true, true));
                     }
 
                     return;

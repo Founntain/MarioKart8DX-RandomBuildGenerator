@@ -5,25 +5,20 @@ It's also possible to create multiple builds at the same time up to 12
 
 ## Sounds cool. How can I add this bot to my server?
 Glad that you ask 😄  
-If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836318982080167946&permissions=117760&scope=bot) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
+If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836611615734497310&permissions=18432&scope=applications.commands%20bot) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
 
 Have fun 😃
 ## Commands
-`$$info`: Prints info about the bot and commands  
-`$$help`: Print help for default generation commands  
-`$$helpWiiU`: Print help for WiiU generation commands  
-All commands are case **insensitive**  
-
-#### Optional parameters
-If you add `[ni]` *(yes with the [])* somewhere as a parameter you can exclude inline bikes in the generation
+`/info`: Prints info about the bot and commands  
+`/support`: Gives you all possible ways how to contact me for help.  
+`/gen-build`: Generates up to 12 builds for your selected game version. *Pro Tip: You can also exclude inline-bikes if you don't like them 🙃*
 
 ## Building the bot by yourself
 If you want for whatever reason want to build the bot by yourself you can do so by pulling this repository and configure it with your prefix and bot token.
 Create a config.json inside the root folder of the project and fill it with the following.
 ```JSON
 {
-  "Token": "<your-bot-token-here>",
-  "Prefix": "<your-bot-prefix-here>"
+  "Token": "<your-bot-token-here>"
 }
 ```
 

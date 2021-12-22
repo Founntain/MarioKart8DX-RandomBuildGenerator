@@ -13,27 +13,66 @@ namespace mk8bot
 {
     public class Program
     {
-        private DiscordSocketClient Client;
-        private Config Config;
+        private DiscordSocketClient _client;
+        private Config _config;
 
         static void Main(string[] args) =>
             new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
-            Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
+            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
 
-            Client = new DiscordSocketClient();
-            Client.Log += OnLog;
-            Client.MessageReceived += OnMessageReceived;
-            Client.Connected += OnConnected;
+            _client = new DiscordSocketClient();
+            _client.Log += OnLog;
+            _client.MessageReceived += OnMessageReceived;
+            _client.Connected += OnConnected;
+            _client.Ready += OnReady;
 
-            var token = this.Config.Token;
+            _client.SlashCommandExecuted += SlashCommandHandler;
 
-            await Client.LoginAsync(TokenType.Bot, token);
-            await Client.StartAsync();
+            var token = this._config.Token;
+
+            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.StartAsync();
 
             await Task.Delay(-1);
+        }
+        
+        private async Task OnReady()
+        {
+            var commandRegisterer = new CommandRegisterer(_client);
+
+            await commandRegisterer.RegisterCommands();
+        }
+        
+        private async Task SlashCommandHandler(SocketSlashCommand command)
+        {
+            switch(command.Data.Name){
+                case "info":
+                    await new InfoCommand().PrintInfo(command, _client.Guilds.Count);
+                    break;
+                case "gen-build":
+                    var gameVersion = (long) command.Data.Options.FirstOrDefault(x => x.Name == "game-version")?.Value;
+                    var excludeInlineParam = (long) command.Data.Options.FirstOrDefault(x => x.Name == "exclude-inline-bikes")?.Value;
+                    long amount = (long) (command.Data.Options.FirstOrDefault(x => x.Name == "amount")?.Value ?? (long) 1);
+
+                    var excludeInline = excludeInlineParam != 0; //!= => true | == => false
+
+                    new GenBuildCommand().ExecuteCommand(command, (int) gameVersion, excludeInline, (int) amount);
+
+                    break;
+                case "support":
+                    await new SupportCommand().PrintSupport(command, _client.Guilds.Count);
+                    
+                    break;
+                case "remind-owners":
+                    await new RemindOwnersToUpdateCommand().PrintTest(command, _client);
+                    break;
+                default:
+                    await command.RespondAsync($"There isn't an implementation for /{command.Data.Name} yet! :'c");
+                    break;
+            }
         }
 
         private Task OnLog(LogMessage message){
@@ -50,46 +89,46 @@ namespace mk8bot
         }
 
         private Task OnMessageReceived(SocketMessage msg){
-            if(!msg.Content.StartsWith(Config.Prefix))
+            if(!msg.Content.StartsWith(_config.Prefix))
                 return Task.CompletedTask;
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}info"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}info"))
             {
-                new InfoCommand().PrintInfo(msg, Config.Prefix, Client.Guilds.Count);
-                return Task.CompletedTask;
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}helpwiiu"))
-            {
-                new HelpWiiUCommand().PrintHelp(msg, Config.Prefix, Client.Guilds.Count);
+                // new InfoCommand().PrintInfo(msg, _config.Prefix, _client.Guilds.Count);
                 return Task.CompletedTask;
             }
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}help"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}helpwiiu"))
             {
-                new HelpCommand().PrintHelp(msg, Config.Prefix, Client.Guilds.Count);
+                new HelpWiiUCommand().PrintHelp(msg, _config.Prefix, _client.Guilds.Count);
+                return Task.CompletedTask;
+            }
+
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}help"))
+            {
+                new HelpCommand().PrintHelp(msg, _config.Prefix, _client.Guilds.Count);
                 return Task.CompletedTask;
             }
 
             var args = msg.Content.Split(" ").ToList();
             args.RemoveAt(0);
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genbuild"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genbuild"))
             {
-                new GenBuildCommand().ExecuteCommand(msg, args);
+                //new GenBuildCommand().ExecuteCommand(msg, args);
             }
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiu"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genwiiu"))
             {
                 new GenWiiUBuildCommand().ExecuteCommand(msg, args);
             }
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}gennames"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}gennames"))
             {
                 new GenNamesBuildCommand().ExecuteCommand(msg, args);
             }
 
-            if(msg.Content.ToLower().StartsWith($"{Config.Prefix}genwiiunames"))
+            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genwiiunames"))
             {
                 new GenWiiUNamesBuildCommand().ExecuteCommand(msg, args);
             }
@@ -98,15 +137,16 @@ namespace mk8bot
         }
 
         private Task OnConnected(){
-            Client.SetGameAsync($"{Config.Prefix}info for help", type: ActivityType.Watching);
+            _client.SetGameAsync($"/info | on {_client.Guilds.Count} servers", type: ActivityType.Watching);
 
             return Task.CompletedTask;
         }
 
         public static Embed GetBuildEmbed(int amount, bool wiiu = false, bool excludeInline = false){
             var embed = new EmbedBuilder{
-                ImageUrl = amount > 1 ? $"attachment://{amount}build.png" : "attachment://build.png",
-                Color = wiiu ? new Color(0x00AEFF) : new Color(0xFF0000)
+                ImageUrl = $"attachment://build.png",
+                Color = wiiu ? new Color(0x00AEFF) : new Color(0xFF0000),
+                Title = amount > 1 ? "Your builds" : "Your build"
             };
 
             embed.Footer = new EmbedFooterBuilder{
