@@ -1,99 +1,103 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using SkiaSharp;
 
-namespace mk8bot.Classes{
+namespace Mk8RPBot.Classes{
     public sealed class BuildGenerator{
-        private readonly int DefaultHeight = 128;
-        private readonly int DefaultCharSize = 128;
-        private readonly int DefaultPartSize = 200;
+        private readonly int _defaultHeight = 128;
+        private readonly int _defaultCharSize = 128;
+        private readonly int _defaultPartSize = 200;
 
-        public async Task<MemoryStream> Generate(bool wiiU = false, bool excludeInline = false){
+        public MemoryStream Generate(bool wiiU = false, bool excludeInline = false){
             var stream = new MemoryStream();
 
-            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
-            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
-            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
-            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
+            var character = GetBitmap(GetRandomCharacter(wiiU, excludeInline));
+            var vehicle = GetBitmap(GetRandomVehicle(wiiU, excludeInline));
+            var tires = GetBitmap(GetRandomTire(wiiU, excludeInline));
+            var glider = GetBitmap(GetRandomGlider(wiiU, excludeInline));
 
-            using(var bitmap = new Bitmap(DefaultPartSize * 3, DefaultHeight * 2)){
-                using(var g = Graphics.FromImage(bitmap)){
-                    g.DrawImage(character, 0, 0);
-                    g.DrawImage(vehicle, 0, DefaultHeight);
-                    g.DrawImage(tires, DefaultPartSize, DefaultHeight);
-                    g.DrawImage(glider, DefaultPartSize * 2, DefaultHeight);
+            using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, _defaultHeight * 2));
+            
+            surface.Canvas.DrawBitmap(character, 0, 0);
+            surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight);
+            surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight);
+            surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight);
+
+            using var image = surface.Snapshot();
+            using var data = image.Encode(SKEncodedImageFormat.Png, 80);
+            
+            data.SaveTo(stream);
+
+            return stream;
+        }
+
+        public MemoryStream Generate(int amount, bool wiiU = false, bool excludeInline = false){
+            var stream = new MemoryStream();
+
+            using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) * amount));
+
+            for(var y = 0; y < amount; y++){
+                var character = GetBitmap(GetRandomCharacter(wiiU, excludeInline));
+                var vehicle = GetBitmap(GetRandomVehicle(wiiU, excludeInline));
+                var tires = GetBitmap(GetRandomTire(wiiU, excludeInline));
+                var glider = GetBitmap(GetRandomGlider(wiiU, excludeInline));
+
+                if(amount > 1)
+                {
+                    surface.Canvas.DrawText($"Build {y+1}",
+                        new SKPoint(_defaultPartSize / 8 + _defaultPartSize, _defaultHeight / 4 + (_defaultHeight * 2) * y),
+                        new SKPaint(new SKFont(SKTypeface.Default)));
                 }
 
-                bitmap.Save(stream, ImageFormat.Png);
-                
-                return stream;
-            };
+                surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
+                surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight + ((_defaultHeight * 2) * y));
+                surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
+                surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight + ((_defaultHeight * 2) * y));
+            }
+
+            using var image = surface.Snapshot();
+            using var data = image.Encode(SKEncodedImageFormat.Png, 80);
+            
+            data.SaveTo(stream);
+
+            return stream;
         }
 
-        public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false){
-            return await Task.Run(() => {
-                var stream = new MemoryStream();
+        public MemoryStream GenerateWithNames(IList<string> names, bool wiiU = false, bool excludeInline = false){
+            var amount = names.Count;
+            var stream = new MemoryStream();
 
-                using(var bitmap = new Bitmap(DefaultPartSize * 3, (DefaultHeight * 2) * amount)){
-                    using(var g = Graphics.FromImage(bitmap)){
-                        for(var y = 0; y < amount; y++){
+            using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) * amount));
 
-                            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
-                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
-                            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
-                            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
+            for(var y = 0; y < amount; y++){
+                var character = GetBitmap(GetRandomCharacter(wiiU, excludeInline));
+                var vehicle = GetBitmap(GetRandomVehicle(wiiU, excludeInline));
+                var tires = GetBitmap(GetRandomTire(wiiU, excludeInline));
+                var glider = GetBitmap(GetRandomGlider(wiiU, excludeInline));
 
-                            if(amount > 1)
-                                g.DrawString($"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
-
-                            g.DrawImage(character, 0, 0 + (DefaultCharSize * 2) * y);
-                            g.DrawImage(vehicle, 0, DefaultHeight + ((DefaultHeight * 2) * y));
-                            g.DrawImage(tires, DefaultPartSize, DefaultHeight + ((DefaultHeight * 2) * y));
-                            g.DrawImage(glider, DefaultPartSize * 2, DefaultHeight + ((DefaultHeight * 2) * y));
-                        }   
-                    }
-
-                    bitmap.Save(stream, ImageFormat.Png);
+                if(amount > 1)
+                {
+                    var name = names.FirstOrDefault() ?? $"Build {y + 1}";
                     
-                    return stream;
-                };
-            });
-        }
+                    surface.Canvas.DrawText(name,
+                        new SKPoint(_defaultPartSize / 8 + _defaultPartSize, _defaultHeight / 4 + (_defaultHeight * 2) * y),
+                        new SKPaint(new SKFont(SKTypeface.Default)));
+                }
 
-        public async Task<MemoryStream> GenerateWithNames(IList<string> names, bool wiiU = false, bool excludeInline = false){
-            return await Task.Run(() => {
-                var amount = names.Count;
-                var stream = new MemoryStream();
+                surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
+                surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight + ((_defaultHeight * 2) * y));
+                surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
+                surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight + ((_defaultHeight * 2) * y));
+            }
 
-                using(var bitmap = new Bitmap(DefaultPartSize * 3, (DefaultHeight * 2) * amount)){
-                    using(var g = Graphics.FromImage(bitmap)){
-                        for(var y = 0; y < amount; y++){
+            using var image = surface.Snapshot();
+            using var data = image.Encode(SKEncodedImageFormat.Png, 80);
+            
+            data.SaveTo(stream);
 
-                            var character = Image.FromFile(GetRandomCharacter(wiiU, excludeInline));
-                            var vehicle = Image.FromFile(GetRandomVehicle(wiiU, excludeInline));
-                            var tires = Image.FromFile(GetRandomTire(wiiU, excludeInline));
-                            var glider = Image.FromFile(GetRandomGlider(wiiU, excludeInline));
-
-                            g.DrawString(names.FirstOrDefault() ?? $"Build {y+1}", new Font("Arial", 35f, FontStyle.Bold), Brushes.White, new PointF(DefaultPartSize / 8 + DefaultPartSize, DefaultHeight / 4 + (DefaultHeight * 2) * y));
-
-                            g.DrawImage(character, 0, 0 + (DefaultCharSize * 2) * y);
-                            g.DrawImage(vehicle, 0, DefaultHeight + ((DefaultHeight * 2) * y));
-                            g.DrawImage(tires, DefaultPartSize, DefaultHeight + ((DefaultHeight * 2) * y));
-                            g.DrawImage(glider, DefaultPartSize * 2, DefaultHeight + ((DefaultHeight * 2) * y));
-
-                            names.RemoveAt(0);
-                        }   
-                    }
-
-                    bitmap.Save(stream, ImageFormat.Png);
-                    
-                    return stream;
-                };
-            });
+            return stream;
         }
 
         private string GetRandomImageFromDirectory(string dir, bool wiiU, bool excludeInline){
@@ -164,6 +168,15 @@ namespace mk8bot.Classes{
                 "yoshibike.png",
                 "mastercycle.png"
             };
+        }
+
+        private SKBitmap GetBitmap(string path)
+        {
+            var stream = new SKFileStream(path);
+            
+            var codec = SKCodec.Create(stream);
+
+            return new SKBitmap(codec.Info);
         }
     }
 }

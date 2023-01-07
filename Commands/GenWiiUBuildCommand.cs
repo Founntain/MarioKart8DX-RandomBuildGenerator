@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Discord.WebSocket;
-using mk8bot.Classes;
+using Mk8RPBot.Classes;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class GenWiiUBuildCommand{
         public void ExecuteCommand(SocketMessage msg, IList<string> args){
             var buildGenerator = new BuildGenerator();
@@ -12,7 +12,7 @@ namespace mk8bot.Commands{
             switch(args.Count){
                 case 0:
                     using(var stream = buildGenerator.Generate(true)){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.Result.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true));
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true));
                     }
 
                     return;
@@ -23,7 +23,7 @@ namespace mk8bot.Commands{
                             return;
                         }
 
-                        using(var stream = buildGenerator.Generate(x, true).Result){
+                        using(var stream = buildGenerator.Generate(x, true)){
                             msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{x}build.png", embed: Program.GetBuildEmbed(x, true));
                             return;
                         }
@@ -35,7 +35,7 @@ namespace mk8bot.Commands{
                     }
 
                     using(var stream = buildGenerator.Generate(true, true)){
-                        msg.Channel.SendFileAsync(new MemoryStream(stream.Result.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true, true));
+                        msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true, true));
                     }
 
                     return;
@@ -50,7 +50,7 @@ namespace mk8bot.Commands{
                     }
 
                     if(int.TryParse(args[0], out var y)){
-                        using(var stream = buildGenerator.Generate(y, excludeInline: excludeInline).Result){
+                        using(var stream = buildGenerator.Generate(y, excludeInline: excludeInline)){
                             msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), "build.png", embed: Program.GetBuildEmbed(1, true, excludeInline));
                         }
 

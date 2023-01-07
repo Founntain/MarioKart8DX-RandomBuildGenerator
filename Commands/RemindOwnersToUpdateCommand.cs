@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class RemindOwnersToUpdateCommand{
         public async Task PrintTest(SocketSlashCommand command, DiscordSocketClient client){
             try

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class InfoCommand{
         public async Task PrintInfo(SocketSlashCommand command, int guildCount){
             var embed = new EmbedBuilder{

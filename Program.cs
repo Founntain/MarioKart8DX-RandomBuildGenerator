@@ -5,27 +5,26 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using mk8bot.Classes;
-using mk8bot.Commands;
+using Mk8RPBot.Classes;
+using Mk8RPBot.Commands;
 using Newtonsoft.Json;
 
-namespace mk8bot
+namespace Mk8RPBot
 {
     public class Program
     {
         private DiscordSocketClient _client;
         private Config _config;
 
-        static void Main(string[] args) =>
+        static void Main(string[] _) =>
             new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
-            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
+            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) ?? new ();
 
             _client = new DiscordSocketClient();
             _client.Log += OnLog;
-            _client.MessageReceived += OnMessageReceived;
             _client.Connected += OnConnected;
             _client.Ready += OnReady;
 
@@ -53,13 +52,13 @@ namespace mk8bot
                     await new InfoCommand().PrintInfo(command, _client.Guilds.Count);
                     break;
                 case "gen-build":
-                    var gameVersion = (long) command.Data.Options.FirstOrDefault(x => x.Name == "game-version")?.Value;
-                    var excludeInlineParam = (long) command.Data.Options.FirstOrDefault(x => x.Name == "exclude-inline-bikes")?.Value;
-                    long amount = (long) (command.Data.Options.FirstOrDefault(x => x.Name == "amount")?.Value ?? (long) 1);
+                    var gameVersion = (int) command.Data.Options.First(x => x.Name == "game-version");
+                    var excludeInlineParam = (int) command.Data.Options.First(x => x.Name == "exclude-inline-bikes");
+                    var amount = (int) command.Data.Options.First(x => x.Name == "amount");
 
                     var excludeInline = excludeInlineParam != 0; //!= => true | == => false
 
-                    new GenBuildCommand().ExecuteCommand(command, (int) gameVersion, excludeInline, (int) amount);
+                    new GenBuildCommand().ExecuteCommand(command, gameVersion, excludeInline, amount);
 
                     break;
                 case "support":
@@ -87,55 +86,7 @@ namespace mk8bot
 
             return Task.CompletedTask;
         }
-
-        private Task OnMessageReceived(SocketMessage msg){
-            if(!msg.Content.StartsWith(_config.Prefix))
-                return Task.CompletedTask;
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}info"))
-            {
-                // new InfoCommand().PrintInfo(msg, _config.Prefix, _client.Guilds.Count);
-                return Task.CompletedTask;
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}helpwiiu"))
-            {
-                new HelpWiiUCommand().PrintHelp(msg, _config.Prefix, _client.Guilds.Count);
-                return Task.CompletedTask;
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}help"))
-            {
-                new HelpCommand().PrintHelp(msg, _config.Prefix, _client.Guilds.Count);
-                return Task.CompletedTask;
-            }
-
-            var args = msg.Content.Split(" ").ToList();
-            args.RemoveAt(0);
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genbuild"))
-            {
-                //new GenBuildCommand().ExecuteCommand(msg, args);
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genwiiu"))
-            {
-                new GenWiiUBuildCommand().ExecuteCommand(msg, args);
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}gennames"))
-            {
-                new GenNamesBuildCommand().ExecuteCommand(msg, args);
-            }
-
-            if(msg.Content.ToLower().StartsWith($"{_config.Prefix}genwiiunames"))
-            {
-                new GenWiiUNamesBuildCommand().ExecuteCommand(msg, args);
-            }
-
-            return Task.CompletedTask;
-        }
-
+        
         private Task OnConnected(){
             _client.SetGameAsync($"/info | on {_client.Guilds.Count} servers", type: ActivityType.Watching);
 

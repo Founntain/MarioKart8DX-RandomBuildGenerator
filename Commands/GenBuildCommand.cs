@@ -1,9 +1,9 @@
 using System.IO;
 using Discord;
 using Discord.WebSocket;
-using mk8bot.Classes;
+using Mk8RPBot.Classes;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class GenBuildCommand{
         public void ExecuteCommand(SocketSlashCommand command, int genType, bool excludeInline, int amount = 1){
             var buildGenerator = new BuildGenerator();
@@ -15,7 +15,7 @@ namespace mk8bot.Commands{
 
             switch(genType){
                 case 0:
-                    using(var stream = buildGenerator.Generate(amount, false, excludeInline).Result){
+                    using(var stream = buildGenerator.Generate(amount, false, excludeInline)){
                         command.RespondWithFileAsync(
                             new MemoryStream(stream.ToArray()),
                             "build.png", 
@@ -31,7 +31,7 @@ namespace mk8bot.Commands{
 
                     return;
                 case 1:
-                    using(var stream = buildGenerator.Generate(amount, true, excludeInline).Result){
+                    using(var stream = buildGenerator.Generate(amount, true, excludeInline)){
                         command.RespondWithFileAsync(
                             new MemoryStream(stream.ToArray()),
                             $"build.png", 

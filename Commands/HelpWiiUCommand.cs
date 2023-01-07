@@ -2,7 +2,7 @@ using System;
 using Discord;
 using Discord.WebSocket;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class HelpWiiUCommand{
         public void PrintHelp(SocketMessage msg, string prefix, int guildCount){
             var embed = new EmbedBuilder{

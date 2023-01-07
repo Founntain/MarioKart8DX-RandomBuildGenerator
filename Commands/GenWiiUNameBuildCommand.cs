@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Discord.WebSocket;
-using mk8bot.Classes;
+using Mk8RPBot.Classes;
 
-namespace mk8bot.Commands{
+namespace Mk8RPBot.Commands{
     public sealed class GenWiiUNamesBuildCommand{
         public void ExecuteCommand(SocketMessage msg, IList<string> args){
             var buildGenerator = new BuildGenerator();
@@ -25,7 +25,7 @@ namespace mk8bot.Commands{
                     return;
                 }
 
-                using(var stream = buildGenerator.GenerateWithNames(args, true, excludeInline).Result){
+                using(var stream = buildGenerator.GenerateWithNames(args, true, excludeInline)){
                     msg.Channel.SendFileAsync(new MemoryStream(stream.ToArray()), $"{amount}build.png", embed: Program.GetBuildEmbed(amount, true, excludeInline));
                     return;
                 }
