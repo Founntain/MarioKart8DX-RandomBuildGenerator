@@ -20,7 +20,7 @@ namespace Mk8RPBot.Commands{
                 using var stream = await buildGenerator.Generate(amount, false, excludeInline);
                 
                 await command.RespondWithFileAsync(
-                    new MemoryStream(stream.ToArray()),
+                    stream,
                     "build.png",
                     string.Empty,
                     null,
@@ -39,7 +39,7 @@ namespace Mk8RPBot.Commands{
                 using var stream = await buildGenerator.Generate(amount, true, excludeInline);
                 
                 await command.RespondWithFileAsync(
-                    new MemoryStream(stream.ToArray()),
+                    stream,
                     $"build.png",
                     string.Empty,
                     null,

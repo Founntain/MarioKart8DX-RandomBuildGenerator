@@ -32,14 +32,6 @@ namespace Mk8RPBot.Classes{
                             new SKPaint(new SKFont(SKTypeface.Default)));
                     }
 
-                    var paint = new SKPaint();
-
-                    paint.Color = new SKColor(255, 255, 255);
-                
-                    surface.Canvas.DrawRect(0, 0, 100, 100, paint);
-
-                    var a = 0 + (_defaultCharSize * 2) * y;
-                
                     surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
                     surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight + ((_defaultHeight * 2) * y));
                     surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
@@ -51,12 +43,6 @@ namespace Mk8RPBot.Classes{
                 using var data = surface.Snapshot().Encode(SKEncodedImageFormat.Png, 80);
             
                 data.SaveTo(stream);
-            
-                using (var fs = File.OpenWrite("test.png"))
-                {
-                    // save the data to a stream
-                    data.SaveTo(fs);
-                }
 
                 return stream;
             });
@@ -174,10 +160,8 @@ namespace Mk8RPBot.Classes{
         private SKBitmap GetBitmap(string path)
         {
             var stream = new SKFileStream(path);
-            
-            var codec = SKCodec.Create(stream);
 
-            return new SKBitmap(codec.Info);
+            return SKBitmap.Decode(stream);
         }
     }
 }
