@@ -25,7 +25,8 @@ namespace Mk8RPBot
 
             _client = new DiscordSocketClient(new()
             {
-                GatewayIntents = GatewayIntents.None
+                GatewayIntents = GatewayIntents.None,
+                UseInteractionSnowflakeDate = false
             });
             
             _client.Log += OnLog;
@@ -62,7 +63,7 @@ namespace Mk8RPBot
 
                     var excludeInline = excludeInlineParam != 0; //!= => true | == => false
 
-                    new GenBuildCommand().ExecuteCommand(command, (int) gameVersion, excludeInline, (int) amount);
+                    await new GenBuildCommand().ExecuteCommandAsync(command, (int) gameVersion, excludeInline, (int) amount);
 
                     break;
                 case "support":
