@@ -23,7 +23,11 @@ namespace Mk8RPBot
         {
             _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) ?? new ();
 
-            _client = new DiscordSocketClient();
+            _client = new DiscordSocketClient(new()
+            {
+                GatewayIntents = GatewayIntents.None
+            });
+            
             _client.Log += OnLog;
             _client.Connected += OnConnected;
             _client.Ready += OnReady;
@@ -52,13 +56,13 @@ namespace Mk8RPBot
                     await new InfoCommand().PrintInfo(command, _client.Guilds.Count);
                     break;
                 case "gen-build":
-                    var gameVersion = (int) command.Data.Options.First(x => x.Name == "game-version");
-                    var excludeInlineParam = (int) command.Data.Options.First(x => x.Name == "exclude-inline-bikes");
-                    var amount = (int) command.Data.Options.First(x => x.Name == "amount");
+                    var gameVersion = (long) command.Data.Options.First(x => x.Name == "game-version").Value;
+                    var excludeInlineParam = (long) command.Data.Options.First(x => x.Name == "exclude-inline-bikes").Value;
+                    var amount = (long) (command.Data.Options.FirstOrDefault(x => x.Name == "amount")?.Value ?? (long) 1);
 
                     var excludeInline = excludeInlineParam != 0; //!= => true | == => false
 
-                    new GenBuildCommand().ExecuteCommand(command, gameVersion, excludeInline, amount);
+                    new GenBuildCommand().ExecuteCommand(command, (int) gameVersion, excludeInline, (int) amount);
 
                     break;
                 case "support":

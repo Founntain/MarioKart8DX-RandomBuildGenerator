@@ -10,29 +10,6 @@ namespace Mk8RPBot.Classes{
         private readonly int _defaultCharSize = 128;
         private readonly int _defaultPartSize = 200;
 
-        public MemoryStream Generate(bool wiiU = false, bool excludeInline = false){
-            var stream = new MemoryStream();
-
-            var character = GetBitmap(GetRandomCharacter(wiiU, excludeInline));
-            var vehicle = GetBitmap(GetRandomVehicle(wiiU, excludeInline));
-            var tires = GetBitmap(GetRandomTire(wiiU, excludeInline));
-            var glider = GetBitmap(GetRandomGlider(wiiU, excludeInline));
-
-            using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, _defaultHeight * 2));
-            
-            surface.Canvas.DrawBitmap(character, 0, 0);
-            surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight);
-            surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight);
-            surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight);
-
-            using var image = surface.Snapshot();
-            using var data = image.Encode(SKEncodedImageFormat.Png, 80);
-            
-            data.SaveTo(stream);
-
-            return stream;
-        }
-
         public MemoryStream Generate(int amount, bool wiiU = false, bool excludeInline = false){
             var stream = new MemoryStream();
 
@@ -51,6 +28,12 @@ namespace Mk8RPBot.Classes{
                         new SKPaint(new SKFont(SKTypeface.Default)));
                 }
 
+                var paint = new SKPaint();
+
+                paint.Color = new SKColor(255, 255, 255);
+                
+                surface.Canvas.DrawRect(0, 0, 100, 100, paint);
+                
                 surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
                 surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight + ((_defaultHeight * 2) * y));
                 surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
@@ -61,6 +44,12 @@ namespace Mk8RPBot.Classes{
             using var data = image.Encode(SKEncodedImageFormat.Png, 80);
             
             data.SaveTo(stream);
+            
+            using (var fs = File.OpenWrite("test.png"))
+            {
+                // save the data to a stream
+                data.SaveTo(fs);
+            }
 
             return stream;
         }
