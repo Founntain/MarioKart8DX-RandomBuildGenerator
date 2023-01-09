@@ -106,7 +106,7 @@ namespace Mk8RPBot
             };
 
             embed.Footer = new EmbedFooterBuilder{
-                IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
+                IconUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
                 Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}{(excludeInline ? " • Inline Bikes Excluded" : string.Empty)}"
             };
 

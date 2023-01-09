@@ -17,14 +17,14 @@ namespace Mk8RPBot.Commands{
             embed.AddField("Need help?", $"Need help using this bot? Or you think there is something wrong in general. Head over to [GitHub](https://github.com/Founntain/MarioKart8DX-RandomBuildGenerator) and report it there.", false);
 
             embed.AddField("/info", $"Shows this message", true);
-            embed.AddField("/gen-build", $"Generate (or multiple builds) with", true);
+            embed.AddField("/gen-build", $"Generate (or multiple) builds", true);
             
             embed.AddField("Support!", $"Type **/support** to get all ways to reach out to me if you have questions");
             
-            embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")}");
+            embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")} Or by giving the [GitHub-Repository a {new Emoji("⭐")}](https://github.com/Founntain/MarioKart8DX-RandomBuildGenerator)");
 
             embed.Footer = new EmbedFooterBuilder{
-                IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
+                IconUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
                 Text = $"Bot made by Founntain • Currently on {guildCount} servers active"
             };
 
