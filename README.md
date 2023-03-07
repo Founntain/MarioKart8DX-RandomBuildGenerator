@@ -21,11 +21,8 @@ Create a config.json inside the root folder of the project and fill it with the 
   "Token": "<your-bot-token-here>"
 }
 ```
-### Terms of Service
 
-Nothing really to be honest as we don't collect any data from servers, users etc. 
-Simply don't abuse the bot for anything shady. Just have fun with it as intended.
-
+### Contibution
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
 ![](https://7.founntain.dev/DbOKF5JI.png)  
