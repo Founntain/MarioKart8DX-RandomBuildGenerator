@@ -21,9 +21,10 @@ Create a config.json inside the root folder of the project and fill it with the 
   "Token": "<your-bot-token-here>"
 }
 ```
+### Terms of Service
 
-## Will this bot be verified?
-I'm working on it, but the discord support isn't responding since a year.
+Nothing really to be honest as we don't collect any data from servers, users etc. 
+Simply don't abuse the bot for anything shady. Just have fun with it as intended.
 
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
