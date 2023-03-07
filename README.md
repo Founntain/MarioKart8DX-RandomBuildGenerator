@@ -25,6 +25,4 @@ Create a config.json inside the root folder of the project and fill it with the 
 ### Contibution
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
-![](https://7.founntain.dev/DbOKF5JI.png)  
-![](https://7.founntain.dev/UP8vqy2r.png)  
-![](https://7.founntain.dev/0fBhGGic.png)
+![](https://gud.founntain.dev/f/apJ0yJl2kC.png)
