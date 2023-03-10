@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
+using Mk8RPBot.Classes.Stats;
 using SkiaSharp;
 
 namespace Mk8RPBot.Classes{
@@ -10,20 +12,81 @@ namespace Mk8RPBot.Classes{
         private readonly int _defaultHeight = 128;
         private readonly int _defaultCharSize = 128;
         private readonly int _defaultPartSize = 200;
+        
+        private SKPaint _textPaint = new SKPaint()
+        {
+            Color = SKColors.White,
+            Style = SKPaintStyle.Fill,
+            TextSize = 28,
+            FakeBoldText = true,
+            IsAntialias = true
+        };
+        
+        private SKPaint _barBackgroundPaint = new SKPaint()
+        {
+            Color = SKColors.DimGray,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
+        
+        private SKPaint _groundPaint = new SKPaint()
+        {
+            Color = SKColors.Orange,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
+        
+        private SKPaint _waterPaint = new SKPaint()
+        {
+            Color = SKColors.DeepSkyBlue,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
+        
+        private SKPaint _airPaint = new SKPaint()
+        {
+            Color = SKColors.YellowGreen,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
+        
+        private SKPaint _antiGravityPaint = new SKPaint()
+        {
+            Color = SKColors.Purple,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
 
+        private SKPaint _otherStatPaint = new SKPaint()
+        {
+            Color = SKColors.Pink,
+            Style = SKPaintStyle.Fill,
+            IsAntialias = true
+        };
+        
         public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false)
         {
             return await Task.Run(() =>
             {
                 var stream = new MemoryStream();
 
-                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
+                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) + 550 * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
 
-                for(var y = 0; y < amount; y++){
-                    var character = GetBitmap(GetRandomCharacter(wiiU, excludeInline));
-                    var vehicle = GetBitmap(GetRandomVehicle(wiiU, excludeInline));
-                    var tires = GetBitmap(GetRandomTire(wiiU, excludeInline));
-                    var glider = GetBitmap(GetRandomGlider(wiiU, excludeInline));
+                var bgBitmap = GetBitmap("resources/style/bg.png");
+                
+                surface.Canvas.DrawBitmap(bgBitmap, 0, 0);
+                
+                for(var y = 0; y < amount; y++)
+                {
+                    var characterPath = GetRandomCharacter(wiiU, excludeInline);
+                    var bodyPath = GetRandomVehicle(wiiU, excludeInline);
+                    var tirePath = GetRandomTire(wiiU, excludeInline);
+                    var gliderPath = GetRandomGlider(wiiU, excludeInline);
+                    
+                    var character = GetBitmap(characterPath);
+                    var body = GetBitmap(bodyPath);
+                    var tire = GetBitmap(tirePath);
+                    var glider = GetBitmap(gliderPath);
 
                     if(amount > 1)
                     {
@@ -33,9 +96,135 @@ namespace Mk8RPBot.Classes{
                     }
 
                     surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
-                    surface.Canvas.DrawBitmap(vehicle, 0, _defaultHeight + ((_defaultHeight * 2) * y));
-                    surface.Canvas.DrawBitmap(tires, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
+                    surface.Canvas.DrawBitmap(body, 0, _defaultHeight + ((_defaultHeight * 2) * y));
+                    surface.Canvas.DrawBitmap(tire, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
                     surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight + ((_defaultHeight * 2) * y));
+
+                    #region Render Build Stats
+
+                    var statGen = new BuildStatGenerator();
+                    
+                    var build = statGen.GetBuild(characterPath, bodyPath, tirePath, gliderPath);
+                    
+                    var groundSpeedPercentage = build.GroundSpeed() / 6;
+                    var waterSpeedPercentage = build.WaterSpeed() / 6;
+                    var airSpeedPercentage = build.GlidingSpeed() / 6;
+                    var antiGravitySpeedPercentage = build.AntiGravitySpeed() / 6;
+
+                    var accelerationPercentage = build.Acceleration() / 6;
+                    var weightPercentage = build.Weight() / 6;
+                    
+                    var groundHandlingPercentage = build.GroundHandling() / 6;
+                    var waterHandlingPercentage = build.WaterHandling() / 6;
+                    var airHandlingPercentage = build.GlidingHandling() / 6;
+                    var antiGravityHandlingPercentage = build.AntiGravityHandling() / 6;
+
+                    var tractionPercentage = build.Traction() / 6;
+                    var miniTurboPercentage = build.MiniTurbo() / 6;
+                    var invincibilityPercentage = build.Invincibility() / 6;
+                    
+                    var statsOffset = 275;
+
+                    var barBitmap = GetBitmap("resources/style/bar.png");
+
+                    #region Speed
+
+                    surface.Canvas.DrawText("Speed (Ground, Water, Air, AntiGravity)", 5, 35 + statsOffset,  _textPaint );
+
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 50 + statsOffset, _defaultPartSize * 3, 60 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 63 + statsOffset, _defaultPartSize * 3, 73 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 76 + statsOffset, _defaultPartSize * 3, 86 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 89 + statsOffset, _defaultPartSize * 3, 99 + statsOffset), 5, 5, _barBackgroundPaint);
+
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 50 + statsOffset, (float) (_defaultPartSize * 3 * groundSpeedPercentage), 60 + statsOffset), 5, 5, _groundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 63 + statsOffset, (float) (_defaultPartSize * 3 * waterSpeedPercentage), 73 + statsOffset), 5, 5, _waterPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 76 + statsOffset, (float) (_defaultPartSize * 3 * airSpeedPercentage), 86 + statsOffset), 5, 5, _airPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 89 + statsOffset, (float) (_defaultPartSize * 3 * antiGravitySpeedPercentage), 99 + statsOffset), 5, 5, _antiGravityPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 50 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 63 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 76 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 89 + statsOffset);
+
+                    #endregion
+
+                    #region Acceleration
+
+                    surface.Canvas.DrawText("Acceleration", 5, 135 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 150 + statsOffset, _defaultPartSize * 3, 160 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 150 + statsOffset, (float) (_defaultPartSize * 3 * accelerationPercentage), 160 + statsOffset), 5, 5, _otherStatPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 150 + statsOffset);
+
+                    #endregion
+
+                    #region Weight
+
+                    surface.Canvas.DrawText("Weight", 5, 195 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 210 + statsOffset, _defaultPartSize * 3, 220 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 210 + statsOffset, (float) (_defaultPartSize * 3 * weightPercentage), 220 + statsOffset), 5, 5, _otherStatPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 210 + statsOffset);
+
+                    #endregion
+
+                    #region Handling
+
+                    surface.Canvas.DrawText("Handling (Ground, Water, Air, AntiGravity)", 5, 255 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 270 + statsOffset, _defaultPartSize * 3, 280 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 283 + statsOffset, _defaultPartSize * 3, 293 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 296 + statsOffset, _defaultPartSize * 3, 306 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 309 + statsOffset, _defaultPartSize * 3, 319 + statsOffset), 5, 5, _barBackgroundPaint);
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 270 + statsOffset, (float) (_defaultPartSize * 3 * groundHandlingPercentage), 280 + statsOffset), 5, 5, _groundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 283 + statsOffset, (float) (_defaultPartSize * 3 * waterHandlingPercentage), 293 + statsOffset), 5, 5, _waterPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 296 + statsOffset, (float) (_defaultPartSize * 3 * airHandlingPercentage), 306 + statsOffset), 5, 5, _airPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 309 + statsOffset, (float) (_defaultPartSize * 3 * antiGravityHandlingPercentage), 319 + statsOffset), 5, 5, _antiGravityPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 270 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 283 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 296 + statsOffset);
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 309 + statsOffset);
+
+                    #endregion
+
+                    #region Traction
+
+                    surface.Canvas.DrawText("Traction", 5, 355 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 370 + statsOffset, _defaultPartSize * 3, 380 + statsOffset + (355 + statsOffset) * y), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 370 + statsOffset, (float) (_defaultPartSize * 3 * tractionPercentage), 380 + statsOffset), 5, 5, _otherStatPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 370 + statsOffset);
+
+                    #endregion
+
+                    #region Mini-Turbo
+
+                    surface.Canvas.DrawText("Mini-Turbo", 5, 415 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 430 + statsOffset, _defaultPartSize * 3, 440 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 430 + statsOffset, (float) (_defaultPartSize * 3 * miniTurboPercentage), 440 + statsOffset), 5, 5, _otherStatPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 430 + statsOffset);
+
+                    #endregion
+
+                    #region Invincibility
+
+                    surface.Canvas.DrawText("Invincibility", 5, 475 + statsOffset,  _textPaint );
+                    
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 490 + statsOffset, _defaultPartSize * 3, 500 + statsOffset), 5, 5, _barBackgroundPaint);
+                    surface.Canvas.DrawRoundRect(new SKRect(0, 490 + statsOffset, (float) (_defaultPartSize * 3 * invincibilityPercentage), 500 + statsOffset), 5, 5, _otherStatPaint);
+                    
+                    surface.Canvas.DrawBitmap(barBitmap, 0, 490 + statsOffset);
+
+                    #endregion
+
+                    #endregion
 
                     surface.Canvas.Flush();
                 }
