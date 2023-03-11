@@ -16,7 +16,7 @@ namespace MkBuildBot
         private DiscordSocketClient _client = null!;
         private Config? _config;
 
-        static void Main() =>
+        public static void Main(string[] args) =>
             new Program().MainAsync().GetAwaiter().GetResult();
 
         private async Task MainAsync()
