@@ -22,6 +22,11 @@ Create a config.json inside the root folder of the project and fill it with the 
 }
 ```
 
+### Special Thanks
+- **SourRaindrop** for making some of the assets and helping in general
+- **Luigi_Fan2** for making an awesome chart of all the stats in the game
+- **u/Deafboy91** for making an awesome Online Builder for MK8DX and using it as insperation for the bar designs
+
 ### Contibution
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
