@@ -25,4 +25,7 @@ Create a config.json inside the root folder of the project and fill it with the 
 ### Contibution
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
-![](https://gud.founntain.dev/f/apJ0yJl2kC.png)
+###  Simple solo build
+![](https://cdn.discordapp.com/attachments/419319912104984577/1084130243800997918/build.png)  
+### Example of mulitple builds
+![](https://cdn.discordapp.com/attachments/419319912104984577/1084130543920234618/build.png)

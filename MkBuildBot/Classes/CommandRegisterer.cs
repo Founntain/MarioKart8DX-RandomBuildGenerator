@@ -5,7 +5,7 @@ using Discord.Net;
 using Discord.WebSocket;
 using Newtonsoft.Json;
 
-namespace mk8bot.Classes{
+namespace MkBuildBot.Classes{
     public class CommandRegisterer{
         private readonly DiscordSocketClient _client;
         private const ulong GUILD_ID = 263840330586128384;
@@ -18,9 +18,9 @@ namespace mk8bot.Classes{
         private async Task RegisterInfoCommand(){
             var command = new SlashCommandBuilder();
             command.WithName("info");
-            command.WithDescription("This command gives you a handy and description info about the bot!");
+            command.WithDescription("This command gives you a handy description/info about the bot!");
 
-            await RegisterCommandGlobally(command);
+            await RegisterCommand(command);
         }
         
         private async Task RegisterSupportCommand(){
@@ -28,7 +28,7 @@ namespace mk8bot.Classes{
             command.WithName("support");
             command.WithDescription("This command shows you all ways how you can contact me for help.");
 
-            await RegisterCommandGlobally(command);
+            await RegisterCommand(command);
         }
 
         //Default Generate Commands
@@ -54,7 +54,7 @@ namespace mk8bot.Classes{
                     .WithType(ApplicationCommandOptionType.Integer)
             );
 
-            await RegisterCommandGlobally(command);
+            await RegisterCommand(command);
         }
 
         private async Task RegisterRemindOwnersCommand(){
@@ -62,7 +62,7 @@ namespace mk8bot.Classes{
             command.WithName("remind-owners");
             command.WithDescription("Remind owners to re-add the bot");
 
-            await RegisterCommandOnGuild(command);
+            await RegisterCommand(command, false);
         }
 
         public async Task RegisterCommands(){
@@ -70,6 +70,18 @@ namespace mk8bot.Classes{
             await RegisterSupportCommand();
             await RegisterGenBuildCommand();
             await RegisterRemindOwnersCommand();
+        }
+
+        public async Task RegisterCommand(SlashCommandBuilder command, bool registerCommandGlobally = true)
+        {
+            if(registerCommandGlobally)
+            {
+                await RegisterCommandGlobally(command);
+            }
+            else
+            {
+                await RegisterCommandOnGuild(command);
+            }
         }
 
         private async Task RegisterCommandGlobally(SlashCommandBuilder command){

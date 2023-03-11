@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
-namespace mk8bot.Commands{
+namespace MkBuildBot.Commands{
     public sealed class SupportCommand{
         public async Task PrintSupport(SocketSlashCommand command, int guildCount){
             var embed = new EmbedBuilder{
                 Title = "Mario Kart 8 Random Part Builder Bot",
                 Timestamp = DateTime.Now,
-                ThumbnailUrl = "https://mario.wiki.gallery/images/3/3d/MK8_Deluxe_Art_-_Crazy_Eight.png",
+                ThumbnailUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
                 Color = Color.Magenta,
                 Url = "https://github.com/Founntain/MarioKart8DX-RandomBuildGenerator"
             };
@@ -19,10 +19,10 @@ namespace mk8bot.Commands{
             embed.AddField("Twitter", $"[FounntainXD](https://twitter.com/FounntainXD)", true);
             embed.AddField("E-Mail", $"7@founntain.dev", true);
 
-            embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")}");
+            embed.AddField("Thank you!", $"Thank you for using this bot. If you like my work I'm happy if you simply say thanks. {new Emoji("❤")} Or by giving the [GitHub-Repository a {new Emoji("⭐")}](https://github.com/Founntain/MarioKart8DX-RandomBuildGenerator)");
 
             embed.Footer = new EmbedFooterBuilder{
-                IconUrl = "https://api.founntain.de/api/users/getProfilePicture?username=Founntain",
+                IconUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
                 Text = $"Bot made by Founntain • Currently on {guildCount} servers active"
             };
 
