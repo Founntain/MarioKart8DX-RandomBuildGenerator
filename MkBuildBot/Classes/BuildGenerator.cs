@@ -20,7 +20,18 @@ namespace MkBuildBot.Classes{
             Style = SKPaintStyle.Fill,
             TextSize = 28,
             FakeBoldText = true,
-            IsAntialias = true
+            IsAntialias = true,
+            Typeface = SKTypeface.Default
+        };
+        
+        private SKPaint _biggerTextPaint = new SKPaint()
+        {
+            Color = SKColors.White,
+            Style = SKPaintStyle.Fill,
+            TextSize = 36,
+            FakeBoldText = true,
+            IsAntialias = true,
+            Typeface = SKTypeface.Default
         };
         
         private SKPaint _barBackgroundPaint = new SKPaint()
@@ -73,14 +84,17 @@ namespace MkBuildBot.Classes{
             {
                 var stream = new MemoryStream();
 
-                var imageStatsOffset = wiiU ? 0 : 550;
+                var imageStatsOffset = wiiU || amount > 1 ? 0 : 550;
 
-                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) + imageStatsOffset * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
+                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, ((_defaultHeight * 2) + imageStatsOffset) * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
 
-                var bgBitmap = GetBitmap($"resources/style/{(wiiU ? "bg2" : "bg")}.png");
+                if (amount < 4)
+                {
+                    var bgBitmap = GetBitmap($"resources/style/{(wiiU ? "bg2" : "bg")}.png");
                 
-                surface.Canvas.DrawBitmap(bgBitmap, 0, 0);
-                
+                    surface.Canvas.DrawBitmap(bgBitmap, 0, 0);
+                }
+
                 for(var y = 0; y < amount; y++)
                 {
                     var characterPath = GetRandomCharacter(wiiU, excludeInline);
@@ -93,21 +107,22 @@ namespace MkBuildBot.Classes{
                     var tire = GetBitmap(tirePath);
                     var glider = GetBitmap(gliderPath);
 
-                    if(amount > 1)
-                    {
-                        surface.Canvas.DrawText($"Build {y+1}",
-                            new SKPoint(_defaultPartSize / 8 + _defaultPartSize, _defaultHeight / 4 + (_defaultHeight * 2) * y),
-                            new SKPaint(new SKFont(SKTypeface.Default)));
-                    }
-
                     surface.Canvas.DrawBitmap(character, 0, 0 + (_defaultCharSize * 2) * y);
                     surface.Canvas.DrawBitmap(body, 0, _defaultHeight + ((_defaultHeight * 2) * y));
                     surface.Canvas.DrawBitmap(tire, _defaultPartSize, _defaultHeight + ((_defaultHeight * 2) * y));
                     surface.Canvas.DrawBitmap(glider, _defaultPartSize * 2, _defaultHeight + ((_defaultHeight * 2) * y));
+                    
+                    if(amount > 1)
+                    {
+                        surface.Canvas.DrawText($"Build {y+1}", _defaultPartSize / 8 + _defaultPartSize, (_defaultHeight / 4 + (_defaultHeight * 2) * y) + 30,  _biggerTextPaint );
+                        
+                        if(amount != y + 1)
+                            surface.Canvas.DrawLine(0, _defaultHeight * 2 + ((_defaultHeight * 2) * y), _defaultPartSize * 3, _defaultHeight * 2 + ((_defaultHeight * 2) * y), _textPaint);
+                    }
 
                     #region Render Build Stats
 
-                    if(wiiU) continue;
+                    if(wiiU || amount > 1) continue;
                     
                     var statGen = new BuildStatGenerator();
                     

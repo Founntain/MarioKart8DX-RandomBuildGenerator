@@ -54,7 +54,7 @@ namespace MkBuildBot.Classes{
                     .WithType(ApplicationCommandOptionType.Integer)
             );
 
-            await RegisterCommand(command, false);
+            await RegisterCommand(command);
         }
 
         private async Task RegisterRemindOwnersCommand(){

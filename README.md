@@ -27,6 +27,7 @@ I'm working on it, but the discord support isn't responding since a year.
 
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
-![](https://7.founntain.dev/DbOKF5JI.png)  
-![](https://7.founntain.dev/UP8vqy2r.png)  
-![](https://7.founntain.dev/0fBhGGic.png)
+###  Simple solo build
+![](https://cdn.discordapp.com/attachments/419319912104984577/1084130243800997918/build.png)  
+### Example of mulitple builds
+![](https://cdn.discordapp.com/attachments/419319912104984577/1084130543920234618/build.png)
