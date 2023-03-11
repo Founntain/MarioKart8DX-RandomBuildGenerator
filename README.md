@@ -22,9 +22,7 @@ Create a config.json inside the root folder of the project and fill it with the 
 }
 ```
 
-## Will this bot be verified?
-I'm working on it, but the discord support isn't responding since a year.
-
+### Contibution
 If you want to contribute to this project, you can willing to do so by opening a pull request.
 ## Screenshots
 ###  Simple solo build
