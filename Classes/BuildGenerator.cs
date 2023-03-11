@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
-using Mk8RPBot.Classes.Stats;
+using MkBuildBot.Classes.Stats;
 using SkiaSharp;
 
-namespace Mk8RPBot.Classes{
+namespace MkBuildBot.Classes{
     public sealed class BuildGenerator{
         private readonly int _defaultHeight = 128;
         private readonly int _defaultCharSize = 128;
         private readonly int _defaultPartSize = 200;
-        
+
+        #region Paints
+
         private SKPaint _textPaint = new SKPaint()
         {
             Color = SKColors.White,
@@ -63,6 +64,8 @@ namespace Mk8RPBot.Classes{
             Style = SKPaintStyle.Fill,
             IsAntialias = true
         };
+
+        #endregion
         
         public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false)
         {
@@ -70,9 +73,11 @@ namespace Mk8RPBot.Classes{
             {
                 var stream = new MemoryStream();
 
-                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) + 550 * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
+                var imageStatsOffset = wiiU ? 0 : 550;
 
-                var bgBitmap = GetBitmap("resources/style/bg.png");
+                using var surface = SKSurface.Create(new SKImageInfo(_defaultPartSize * 3, (_defaultHeight * 2) + imageStatsOffset * amount, SKColorType.Bgra8888, SKAlphaType.Unpremul));
+
+                var bgBitmap = GetBitmap($"resources/style/{(wiiU ? "bg2" : "bg")}.png");
                 
                 surface.Canvas.DrawBitmap(bgBitmap, 0, 0);
                 
@@ -102,6 +107,8 @@ namespace Mk8RPBot.Classes{
 
                     #region Render Build Stats
 
+                    if(wiiU) continue;
+                    
                     var statGen = new BuildStatGenerator();
                     
                     var build = statGen.GetBuild(characterPath, bodyPath, tirePath, gliderPath);
@@ -331,6 +338,7 @@ namespace Mk8RPBot.Classes{
                 "goldmario.png",
                 "drybones.png",
                 "bowserjr.png",
+                "birdo.png",
                 "inklingfemale.png",
                 "inklingmale.png"
             };

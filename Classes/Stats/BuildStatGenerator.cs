@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Mk8RPBot.Classes.Stats;
+namespace MkBuildBot.Classes.Stats;
 
 public class BuildStatGenerator
 {
@@ -20,13 +20,7 @@ public class BuildStatGenerator
         var tirePart = GetTire(Path.GetFileNameWithoutExtension(tire));
         var gliderPart = GetGlider(Path.GetFileNameWithoutExtension(glider));
 
-        return new Build
-        {
-            Character = characterPart,
-            Body = bodyPart,
-            Tire = tirePart,
-            Glider = gliderPart
-        };
+        return new Build(characterPart, bodyPart, tirePart, gliderPart);
     }
 
     #region Get Part Methods
@@ -38,82 +32,66 @@ public class BuildStatGenerator
             case "babydaisy":
             case "babypeach":
                 return Characters[0];
-                break;
             case "babyrosalina":
             case "lemmy":
                 return Characters[1];
-                break;
             case "babymario":
             case "babyluigi":
             case "drybones":
             case "lightmii":
                 return Characters[2];
-                break;
             case "toadette":
             case "wendy":
             case "isabelle":
                 return Characters[3];
-                break;
             case "koopa":
             case "lakitu":
             case "bowserjr":
                 return Characters[4];
-                break;
             case "toad":
             case "shyguy":
             case "larry":
                 return Characters[5];
-                break;
             case "catpeach":
             case "inklingfemale":
             case "villagerfemale":
                 return Characters[6];
-                break;
             case "peach":
             case "daisy":
             case "yoshi":
             case "birdo":
                 return Characters[7];
-                break;
             case "tanookimario":
             case "inklingmale":
             case "villagermale":
                 return Characters[8];
-                break;
             case "mario":
             case "ludwig":
             case "mediummii":
                 return Characters[9];
-                break;
             case "luigi":
             case "iggy":
                 return Characters[10];
-                break;
             case "Rosalina":
             case "kingboo":
             case "link":
                 return Characters[11];
-                break;
             case "metalmario":
             case "goldmario":
             case "rosegoldpeach":
                 return Characters[12];
-                break;
             case "waluigi":
             case "dk":
             case "roy":
                 return Characters[13];
-                break;
             case "wario":
             case "drybowser":
                 return Characters[14];
-                break;
             case "bowser":
             case "morton":
             case "heavymii":
                 return Characters[15];
-                break;
-            default: return default;
+            default: return new PartStat();
         }
 
         ;
@@ -126,101 +104,73 @@ public class BuildStatGenerator
             case "standard":
             case "theduke":
                 return Bodies[0];
-                break;
             case "300slroadster":
                 return Bodies[1];
-                break;
             case "pipeframe":
                 return Bodies[2];
-                break;
             case "varmint":
             case "citytripper":
                 return Bodies[3];
-                break;
             case "mach8":
             case "sportscoupe":
                 return Bodies[4];
-                break;
             case "inkstriker":
                 return Bodies[5];
-                break;
             case "steeldriver":
             case "trispeeder":
                 return Bodies[6];
-                break;
             case "bonerattler":
                 return Bodies[7];
-                break;
             case "catcruiser":
             case "teddybuggy":
                 return Bodies[8];
-                break;
             case "comet":
             case "yoshibike":
                 return Bodies[9];
-                break;
             case "circuitspecial":
             case "mk8dasher":
             case "pwing":
                 return Bodies[10];
-                break;
             case "badwagon":
             case "gla":
                 return Bodies[11];
-                break;
             case "standardatv":
                 return Bodies[12];
-                break;
             case "prancerbody":
                 return Bodies[13];
-                break;
             case "sportbike":
             case "jetbike":
                 return Bodies[14];
-                break;
             case "biddybuggy":
             case "mrscooty":
                 return Bodies[15];
-                break;
             case "landship":
                 return Bodies[16];
-                break;
             case "streetle":
                 return Bodies[17];
-                break;
             case "sneaker":
                 return Bodies[18];
-                break;
             case "goldstandard":
                 return Bodies[19];
-                break;
             case "mastercycle":
                 return Bodies[20];
-                break;
             case "w25silverarrow":
                 return Bodies[21];
-                break;
             case "standardbike":
             case "flamerider":
                 return Bodies[22];
-                break;
             case "wildwiggler":
                 return Bodies[23];
-                break;
             case "bluefalcon":
                 return Bodies[24];
-                break;
             case "splatbuggy":
                 return Bodies[25];
-                break;
             case "tanookibuggy":
                 return Bodies[26];
-                break;
             case "koopaclown":
             case "mastercyclezero":
                 return Bodies[27];
-                break;
-            default: return default;
+            default: return new PartStat();
         }
     }
 
@@ -231,54 +181,40 @@ public class BuildStatGenerator
             case "standard":
             case "standardblue":
                 return Tires[0];
-                break;
             case "gla":
                 return Tires[1];
-                break;
             case "monster":
             case "monsterorange":
                 return Tires[2];
-                break;
             case "ancient":
                 return Tires[3];
-                break;
             case "roller":
             case "rollerazure":
                 return Tires[4];
-                break;
             case "slim":
             case "slimcrimson":
             case "wood":
                 return Tires[5];
-                break;
             case "slick":
             case "slickcyber":
                 return Tires[6];
-                break;
             case "metal":
                 return Tires[7];
-                break;
             case "gold":
                 return Tires[8];
-                break;
             case "button":
             case "leaf":
                 return Tires[9];
-                break;
             case "offroad":
             case "offroadretro":
                 return Tires[10];
-                break;
             case "triforce":
                 return Tires[11];
-                break;
             case "sponge":
                 return Tires[12];
-                break;
             case "cushion":
                 return Tires[13];
-                break;
-            default: return default;
+            default: return new PartStat();
         }
     }
 
@@ -290,31 +226,27 @@ public class BuildStatGenerator
             case "waddle":
             case "hylian":
                 return Gliders[0];
-                break;
             case "cloud":
             case "parachute":
             case "flower":
             case "paper":
                 return Gliders[1];
-                break;
             case "wario":
             case "plane":
             case "gold":
             case "paraglider":
                 return Gliders[2];
-                break;
             case "peach":
             case "parafoil":
             case "bowser":
             case "mktv":
                 return Gliders[3];
-                break;
-            default: return default;
+            default: return new PartStat();
         }
     }
-    
+
     #endregion
-    
+
     #region Base Stats
 
     private List<PartStat> GetCharacterBases()

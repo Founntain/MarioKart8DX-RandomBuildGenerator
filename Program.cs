@@ -5,24 +5,38 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Mk8RPBot.Classes;
-using Mk8RPBot.Commands;
+using MkBuildBot.Classes;
+using MkBuildBot.Commands;
 using Newtonsoft.Json;
 
-namespace Mk8RPBot
+namespace MkBuildBot
 {
     public class Program
     {
-        private DiscordSocketClient _client;
-        private Config _config;
+        private DiscordSocketClient _client = null!;
+        private Config? _config;
 
-        static void Main(string[] _) =>
+        static void Main() =>
             new Program().MainAsync().GetAwaiter().GetResult();
 
-        public async Task MainAsync()
+        private async Task MainAsync()
         {
-            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) ?? new ();
+            if (!File.Exists("config.json"))
+            {
+                Console.WriteLine("Couldn't find the config file...");
+                Console.WriteLine("BOT STOPPING");
+                return;
+            }
+            
+            _config = JsonConvert.DeserializeObject<Config>(await File.ReadAllTextAsync("config.json"));
 
+            if (_config == null || string.IsNullOrWhiteSpace(_config?.Token))
+            {
+                Console.WriteLine("Couldn't find the config or there was no token specified in the config...");
+                Console.WriteLine("BOT STOPPING");
+                return;
+            }
+            
             _client = new DiscordSocketClient(new()
             {
                 GatewayIntents = GatewayIntents.None,
@@ -102,12 +116,11 @@ namespace Mk8RPBot
             var embed = new EmbedBuilder{
                 ImageUrl = $"attachment://build.png",
                 Color = wiiu ? new Color(0x00AEFF) : new Color(0xFF0000),
-                Title = amount > 1 ? "Your builds" : "Your build"
-            };
-
-            embed.Footer = new EmbedFooterBuilder{
-                IconUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
-                Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}{(excludeInline ? " • Inline Bikes Excluded" : string.Empty)}"
+                Title = amount > 1 ? "Your builds" : "Your build",
+                Footer = new EmbedFooterBuilder{
+                    IconUrl = "https://osuplayer.founntain.dev/api/users/getProfilePicture?username=Founntain",
+                    Text = $"Bot made by Founntain • {(wiiu ? "WiiU Version" : "Switch Version")}{(excludeInline ? " • Inline Bikes Excluded" : string.Empty)}"
+                }
             };
 
             return embed.Build();

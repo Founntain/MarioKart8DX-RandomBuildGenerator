@@ -1,4 +1,4 @@
-﻿namespace Mk8RPBot.Classes.Stats;
+﻿namespace MkBuildBot.Classes.Stats;
 
 public class Build
 {
@@ -6,6 +6,14 @@ public class Build
     public PartStat Body { get; set; }
     public PartStat Tire { get; set; }
     public PartStat Glider { get; set; }
+
+    public Build(PartStat character, PartStat body, PartStat tire, PartStat glider)
+    {
+        Character = character;
+        Body = body;
+        Tire = tire;
+        Glider = glider;
+    }
 
     public double GroundSpeed()
     {

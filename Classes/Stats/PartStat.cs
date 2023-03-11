@@ -1,7 +1,12 @@
-﻿namespace Mk8RPBot.Classes.Stats;
+﻿namespace MkBuildBot.Classes.Stats;
 
 public class PartStat : IPartStat
 {
+    public PartStat()
+    {
+        Name = "Not Found";
+    }
+    
     public PartStat(string name, double groundSpeed, double antiGravitySpeed, double waterSpeed, double glidingSpeed,
         double acceleration, double weight, double groundHandling, double antiGravityHandling, double waterHandling,
         double glidingHandling, double traction, double miniTurbo, double invincibility)

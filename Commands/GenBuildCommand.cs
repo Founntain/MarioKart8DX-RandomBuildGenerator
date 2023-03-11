@@ -1,11 +1,9 @@
-using System.IO;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
-using Mk8RPBot.Classes;
-using SkiaSharp;
+using MkBuildBot.Classes;
 
-namespace Mk8RPBot.Commands{
+namespace MkBuildBot.Commands{
     public sealed class GenBuildCommand{
         public async Task ExecuteCommandAsync(SocketSlashCommand command, int genType, bool excludeInline, int amount = 1){
             var buildGenerator = new BuildGenerator();

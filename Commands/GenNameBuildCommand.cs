@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Discord.WebSocket;
-using Mk8RPBot.Classes;
+using MkBuildBot.Classes;
 
-namespace Mk8RPBot.Commands{
+namespace MkBuildBot.Commands{
     public sealed class GenNamesBuildCommand{
         public async void ExecuteCommandAsync(SocketMessage msg, IList<string> args){
             var buildGenerator = new BuildGenerator();

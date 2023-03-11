@@ -1,5 +1,5 @@
-namespace Mk8RPBot.Classes{
+namespace MkBuildBot.Classes{
     public sealed class Config{
-        public string Token {get; set;}
+        public string? Token {get; set;}
     }
 }

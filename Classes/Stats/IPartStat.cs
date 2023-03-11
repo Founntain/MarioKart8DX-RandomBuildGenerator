@@ -1,4 +1,4 @@
-﻿namespace Mk8RPBot.Classes.Stats;
+﻿namespace MkBuildBot.Classes.Stats;
 
 public class IPartStat
 {

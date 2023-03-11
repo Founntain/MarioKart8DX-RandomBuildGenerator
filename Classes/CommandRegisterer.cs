@@ -5,7 +5,7 @@ using Discord.Net;
 using Discord.WebSocket;
 using Newtonsoft.Json;
 
-namespace Mk8RPBot.Classes{
+namespace MkBuildBot.Classes{
     public class CommandRegisterer{
         private readonly DiscordSocketClient _client;
         private const ulong GUILD_ID = 263840330586128384;
