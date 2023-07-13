@@ -71,6 +71,7 @@ public class BuildStatGenerator
                 return Characters[9];
             case "luigi":
             case "iggy":
+            case "kamek":
                 return Characters[10];
             case "Rosalina":
             case "kingboo":
@@ -83,14 +84,17 @@ public class BuildStatGenerator
             case "waluigi":
             case "dk":
             case "roy":
+            case "wiggler":
                 return Characters[13];
             case "wario":
             case "drybowser":
+            case "heavymii":
                 return Characters[14];
             case "bowser":
             case "morton":
-            case "heavymii":
                 return Characters[15];
+            case "petey":
+                return Characters[16];
             default: return new PartStat();
         }
 
@@ -254,33 +258,22 @@ public class BuildStatGenerator
         return new List<PartStat>
         {
             new("LightChar1", 2.5, 2.25, 2.75, 3, 4, 2, 5, 5, 4.5, 5, 4.25, 4.5, 4), // Baby Peach, Baby Daisy
-            new("LightChar2", 2.5, 2.25, 2.75, 3, 4.25, 2, 4.75, 4.75, 4.25, 4.75, 3.75, 4.5,
-                4), // Baby Rosalina, Lemmi
-            new("LightChar3", 2.75, 2.5, 3, 3.25, 4.25, 2.25, 4.5, 4.5, 4, 4.5, 4, 4.5,
-                4), // Baby Mario, Baby Luigi, Dry Bones, Light Mii
-            new("LightChar4", 3, 2.75, 3.25, 3.5, 4.25, 2.5, 4.25, 4.25, 3.75, 4.25, 3.5, 4.25,
-                3.75), // Toadette, Wendy, Isabelle
-            new("LightChar6", 3, 2.75, 3.25, 3.5, 4, 2.5, 4.5, 4.5, 4, 4.5, 4.25, 4.25,
-                3.75), // Koopa Troopa, Lakitu, Bowser Jr.
-            new("LightChar6", 3.25, 3, 3.5, 3.75, 4, 2.75, 4.25, 4.25, 3.75, 4.25, 4, 4.25,
-                3.5), // Toad, Shy Guy, Larry
-            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4,
-                3.5), // Cat Peach, Inkling Girl, Female Villager
-            new("MediumChar2", 3.75, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25,
-                3.25), // Peach, Daisy, Yoshi, Birdo
-            new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4,
-                3.25), // Tanuki Mario, Inkling Boy, Male Villager
-            new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4,
-                3.25), // Mario, Ludwig, Medium Mii
-            new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.25), // Luigi, Iggy
-            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75,
-                3), // Rosalina, King Boo, Link 
-            new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5,
-                2.75), // Metal Mario, Gold Mario, Pink Gold Peach
-            new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 2.75), // Waluigi, DK, Roy
-            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25,
-                2.75), // Wario, Dry Bowser
-            new("HeavyChar5", 4.75, 4.5, 5, 5.25, 3, 4.5, 2.5, 2.5, 2, 2.5, 3, 3.25, 2.75) // Bowser, Morton, Heavy Mii
+            new("LightChar2", 2.5, 2.25, 2.75, 3, 4.25, 2, 4.75, 4.75, 4.25, 4.75, 3.75, 4.5, 4), // Baby Rosalina, Lemmi
+            new("LightChar3", 2.75, 2.5, 3, 3.25, 4.25, 2.25, 4.5, 4.5, 4, 4.5, 4, 4.5, 3.75), // Baby Mario, Baby Luigi, Dry Bones, Light Mii
+            new("LightChar4", 3, 2.75, 3.25, 3.5, 4.25, 2.5, 4.25, 4.25, 3.75, 4.25, 3.5, 4.25, 3.25), // Toadette, Wendy, Isabelle
+            new("LightChar6", 3, 2.75, 3.25, 3.5, 4, 2.5, 4.5, 4.5, 4, 4.5, 4.25, 4.25, 3.5), // Koopa Troopa, Lakitu, Bowser Jr.
+            new("LightChar6", 3.25, 3, 3.5, 3.75, 4, 2.75, 4.25, 4.25, 3.75, 4.25, 4, 4.25, 3.25), // Toad, Shy Guy, Larry
+            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4.25, 3.25), // Cat Peach, Inkling Girl, Female Villager
+            new("MediumChar2", 3.25, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25, 2.75), // Peach, Daisy, Yoshi, Birdo
+            new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4.25, 2.75), // Tanuki Mario, Inkling Boy, Male Villager
+            new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4, 3.25), // Mario, Ludwig, Medium Mii
+            new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.25), // Luigi, Iggy, Kamek
+            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link 
+            new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 3.25), // Metal Mario, Gold Mario, Pink Gold Peach
+            new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 3.5), // Waluigi, DK, Roy, Wiggler
+            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 3.75), // Wario, Dry Bowser, Heavy Mii
+            new("HeavyChar5", 4.75, 4.5, 5, 5.25, 3, 4.5, 2.5, 2.5, 2, 2.5, 3, 3.25, 4), // Bowser, Morton
+            new("HeavyChar6", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 4) // Petey Piranha
         };
     }
 
@@ -291,50 +284,44 @@ public class BuildStatGenerator
             new("Body1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), // Standard Kart & Duke
             new("Body2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25), // 300 SL Roadster
 
-            new("Body3", -0.5, -0.5, 0, -0.5, 0.5, -0.25, 0.5, 0.25, 0.5, -0.25, 0.25, 0.25, -0.25), // Pipe Frame
-            new("Body4", -0.5, -0.5, 0, -0.5, 0.5, -0.25, 0.5, 0.25, 0.5, -0.25, 0.25, 0.25,
-                -0.5), // Varmint & City Tripper
+            new("Body3", -0.25, -0.5, 0, -0.5, 0.5, -0.25, 0.5, 0.25, 0.5, -0.25, 0.25, 0.25, -0.25), // Pipe Frame
+            new("Body4", -0.25, -0.5, 0, -0.5, 0.5, -0.25, 0.5, 0.25, 0.5, -0.25, 0.25, 0.25, -0.5), // Varmint & City Tripper
 
             new("Body5", 0, 0.5, 0, 0.25, -0.25, 0.25, -0.25, 0.25, 0, -0.25, 0.25, 0, 0.25), // Mach 8 & Sports coupe
             new("Body6", 0, 0.5, 0, 0.25, -0.25, 0.25, -0.25, 0.25, 0, -0.25, 0.25, 0, 0), // Inkstriker
 
-            new("Body7", 0.25, -0.25, 0.5, -0.75, -0.75, 0.5, -0.5, -0.5, 0.75, -0.5, 0, -0.5,
-                0.75), // Steel Driver & Tri Speeder
+            new("Body7", 0.25, -0.25, 0.5, -0.75, -0.75, 0.5, -0.5, -0.5, 0.75, -0.5, 0, -0.5, 0.75), // Steel Driver & Tri Speeder
             new("Body8", 0.25, -0.25, 0.5, -0.75, -0.75, 0.5, -0.5, -0.5, 0.75, -0.5, 0, -0.5, 0.5), // Bone Rattler
 
             new("Body9", -0.25, 0, -0.25, 0.25, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0.25, 0), // Cat Cruiser & Teddy Buggy
             new("Body10", -0.25, 0, -0.25, 0.25, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0.25, -0.25), // Comet & Yoshi Bike
 
-            new("Body11", 0.5, 0.25, -0.5, -0.25, -0.75, 0.25, -0.5, -0.25, -0.25, -0.75, -0.5, -0.75,
-                0.75), // Circuit Special, B-Dasher, P-Wing
+            new("Body11", 0.5, 0.25, -0.5, -0.25, -0.75, 0.25, -0.5, -0.25, -0.25, -0.75, -0.5, -0.5, 0.75), // Circuit Special, B-Dasher, P-Wing
 
-            new("Body12", 0.5, 0, -0.25, -0.5, -1, 0.5, -0.75, -0.5, -0.25, -0.75, 0.5, -1, 1), // Badwagon, GLA
-            new("Body13", 0.5, 0, -0.25, -0.5, -1, 0.5, -0.75, -0.5, -0.25, -0.75, 0.5, -1, 0.75), // Standard ATV
+            new("Body12", 0.5, 0, -0.25, -0.5, -1, 0.5, -0.75, -0.5, -0.25, -0.75, 0.5, -0.5, 1), // Badwagon, GLA
+            new("Body13", 0.5, 0, -0.25, -0.5, -1, 0.5, -0.75, -0.5, -0.25, -0.75, 0.5, -0.5, 0.75), // Standard ATV
 
             new("Body14", 0.25, 0, 0, 0, -0.5, -0.25, 0, -0.25, 0.25, 0, -0.25, -0.25, 0.5), // Prancer
             new("Body15", 0.25, 0, 0, 0, -0.5, -0.25, 0, -0.25, 0.25, 0, -0.25, -0.25, 0), // Sport Bike Jet Bike
 
-            new("Body16", -0.75, -0.25, -0.5, -0.5, 0.75, -0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5,
-                -0.75), // Biddybuggy & Mister Scooty
+            new("Body16", -0.75, -0.25, -0.5, -0.5, 0.75, -0.5, 0.5, 0.5, 0.5, 0.25, 0.25, 0.5, -0.75), // Biddybuggy & Mister Scooty
 
-            new("Body17", -0.5, -0.75, 0.5, -0.25, 0.5, -0.5, 0.25, -0.25, 0.75, 0, 0.75, 0.25, -0.5), // Landship
-            new("Body18", -0.5, -0.75, 0.5, -0.25, 0.5, -0.5, 0.25, -0.25, 0.75, 0, 0.75, 0.25, -0.25), // Streetle
+            new("Body17", -0.25, -0.75, 0.5, -0.25, 0.5, -0.5, 0.25, -0.25, 0.75, 0, 0.75, 0.25, -0.5), // Landship
+            new("Body18", -0.25, -0.75, 0.5, -0.25, 0.5, -0.5, 0.25, -0.25, 0.75, 0, 0.75, 0.25, -0.25), // Streetle
 
             new("Body19", 0.25, 0, -0.25, 0, -0.5, 0, 0, 0, 0, -0.25, -0.75, -0.25, 0.5), // Sneeker
             new("Body20", 0.25, 0, -0.25, 0, -0.5, 0, 0, 0, 0, -0.25, -0.75, -0.25, 0.25), // Gold Standard
             new("Body21", 0.25, 0, -0.25, 0, -0.5, 0, 0, 0, 0, -0.25, -0.75, -0.25, 0), // Master Cycle
 
             new("Body22", -0.25, 0.25, -0.25, 0, 0.25, -0.25, 0.25, 0.25, 0.25, 0, 0.5, 0, 0), // W 25 Silver Arrow
-            new("Body23", -0.25, 0.25, -0.25, 0, 0.25, -0.25, 0.25, 0.25, 0.25, 0, 0.5, 0,
-                -0.25), // Standard Bike & Flame Rider
+            new("Body23", -0.25, 0.25, -0.25, 0, 0.25, -0.25, 0.25, 0.25, 0.25, 0, 0.5, 0, -0.25), // Standard Bike & Flame Rider
             new("Body24", -0.25, 0.25, -0.25, 0, 0.25, -0.25, 0.25, 0.25, 0.25, 0, 0.5, 0, -0.5), // Wild Wiggler
 
             new("Body25", 0.25, 0.25, -0.25, 0, -0.25, -0.5, -0.25, 0.5, 0.25, -0.5, 0, -0.25, 0.25), // Blue Falcon
             new("Body26", 0.25, 0.25, -0.25, 0, -0.25, -0.5, -0.25, 0.5, 0.25, -0.5, 0, -0.25, 0), // Splat Buggy
 
-            new("Body27", -0.25, 0, 0.25, 0, -0.5, 0.25, 0.25, 0, 0.5, 0, 1, -0.25, 0.25), // Tanooki Kart
-            new("Body28", -0.25, 0, 0.25, 0, -0.5, 0.25, 0.25, 0, 0.5, 0, 1, -0.25,
-                0) // Koopa Clown & Master Cycle Zero
+            new("Body27", 0, 0, 0.25, 0, -0.5, 0.25, 0.25, 0, 0.5, 0, 1, 0, 0.25), // Tanooki Kart
+            new("Body28", 0, 0, 0.25, 0, -0.5, 0.25, 0.25, 0, 0.5, 0, 1, 0, 0) // Koopa Clown & Master Cycle Zero
         };
     }
 
@@ -345,26 +332,21 @@ public class BuildStatGenerator
             new("Tire1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), // Standard & Blue
             new("Tire2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25), // GLA
 
-            new("Tire3", 0, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25,
-                0.5), // Mosnter & Hot Monster
-            new("Tire4", 0, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.25), // Ancient
+            new("Tire3", 0.25, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.5), // Mosnter & Hot Monster
+            new("Tire4", 0.25, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.25), // Ancient
 
-            new("Tire5", -0.5, -0.5, 0, 0, 0.5, -0.5, 0.25, 0.25, 0.25, 0.25, -0.25, 0.5,
-                -0.75), // Roller & Azure Roller
+            new("Tire5", -0.5, -0.5, 0, 0, 0.5, -0.5, 0.25, 0.25, 0.25, 0.25, -0.25, 0.5, -0.75), // Roller & Azure Roller
 
-            new("Tire6", 0.25, 0.5, -0.25, -0.25, -0.5, 0, 0.25, 0, 0.25, 0.25, -1, -0.25,
-                0.25), // Slim & Wood, Crimson Slim
+            new("Tire6", 0.25, 0.5, -0.25, -0.25, -0.5, 0, 0.25, 0, 0.25, 0.25, -1, -0.25, 0.25), // Slim & Wood, Crimson Slim
 
-            new("Tire7", 0.5, 0.5, -0.75, -0.75, -0.75, 0.25, -0.25, -0.25, -0.75, -0.5, -1.25, -0.75,
-                0.25), // Slick &  Cyber Slick
+            new("Tire7", 0.5, 0.5, -0.75, -0.75, -0.75, 0.25, -0.25, -0.25, -0.75, -0.5, -1.25, -0.75, 0.25), // Slick &  Cyber Slick
 
-            new("Tire8", 0.5, -0.25, 0, -0.25, -1, 0.5, -0.25, -0.5, -0.25, -0.75, -0.75, -0.75, 0.5), // Metal
-            new("Tire9", 0.5, -0.25, 0, -0.25, -1, 0.5, -0.25, -0.5, -0.25, -0.75, -0.75, -0.75, 0.25), // Gold
+            new("Tire8", 0.5, -0.25, 0, -0.25, -1, 0.5, -0.25, -0.5, -0.25, -0.75, -0.75, -0.50, 0.5), // Metal
+            new("Tire9", 0.5, -0.25, 0, -0.25, -1, 0.5, -0.25, -0.5, -0.25, -0.75, -0.75, -0.50, 0.25), // Gold
 
             new("Tire10", -0.25, 0, -0.25, -0.25, 0.25, -0.5, 0, 0.25, 0, -0.25, -0.5, 0.25, -0.25), // Button & Leaf
 
-            new("Tire11", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.5, 0.25, -0.5,
-                0.75), // Offroad & Retro Offroad
+            new("Tire11", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.5, 0.25, -0.5, 0.75), // Offroad & Retro Offroad
             new("Tire12", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.5, 0.25, -0.5, 0.5), // TriForce
 
             new("Tire13", -0.25, -0.25, -0.5, 0.25, 0, -0.25, -0.25, 0, -0.5, 0, 0.25, 0.25, 0), // Sponge
@@ -377,12 +359,9 @@ public class BuildStatGenerator
         return new List<PartStat>
         {
             new("Glider1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), // Super, Woddle Wing, Hylian Kite
-            new("Glider2", -0.25, 0.25, 0, -0.25, 0.25, -0.25, 0, 0, 0, 0.25, 0, 0.25,
-                -0.25), // Cloud, Parachute, Flower & Paper Glider
-            new("Glider3", 0, 0.25, -0.25, 0, 0, 0.25, 0, -0.25, 0.25, 0, -0.25, 0,
-                0), // Wario, Plane, Gold, Paraglider
-            new("Glider4", -0.25, 0.25, -0.25, -0.25, 0.25, 0, 0, -0.25, 0.25, 0.25, -0.25, 0.25,
-                -0.25) // Peach, Parafoil, bowser kite, MKTV
+            new("Glider2", -0.25, 0.25, 0, -0.25, 0.25, -0.25, 0, 0, 0, 0.25, 0, 0.25, -0.25), // Cloud, Parachute, Flower & Paper Glider
+            new("Glider3", 0, 0.25, -0.25, 0, 0, 0.25, 0, -0.25, 0.25, 0, -0.25, 0, 0), // Wario, Plane, Gold, Paraglider
+            new("Glider4", -0.25, 0.25, -0.25, -0.25, 0.25, 0, 0, -0.25, 0.25, 0.25, -0.25, 0.25, -0.25) // Peach, Parafoil, bowser kite, MKTV
         };
     }
 

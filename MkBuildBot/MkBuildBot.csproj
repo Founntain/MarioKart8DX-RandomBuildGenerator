@@ -16,10 +16,6 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.3" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Classes\Stats\Characters" />
-  </ItemGroup>
   <ItemGroup>
     <None Update="resources\style\bar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
