@@ -6,7 +6,7 @@ It's also possible to create multiple builds at the same time up to 12.
 
 ## Sounds cool. How can I add this bot to my server?
 Glad that you ask 😄  
-If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836318982080167946&permissions=19456&scope=bot%20applications.commands) to add the bot to your discord server. Please check if you have enough permissions, if you want to add the bot to the server, otherwise ask kindly someone to add it for you.  
+If you want to add the bot to your discord server you can [use this link](https://discord.com/api/oauth2/authorize?client_id=836318982080167946&permissions=19456&scope=bot%20applications.commands) . Please check if you have enough permissions if you want to add the bot to the server, otherwise kindly ask someone to add it for you.  
 
 Have fun 😃
 ## Commands
@@ -15,7 +15,7 @@ Have fun 😃
 `/gen-build`: Generates up to 12 builds for your selected game version. *Pro Tip: You can also exclude inline-bikes if you don't like them 🙃*
 
 ## Building the bot by yourself
-If you want for whatever reason want to build the bot by yourself you can do so by pulling this repository and configure it with your prefix and bot token.
+If you want for whatever reason want to build the bot by yourself you can do so by pulling this repository and configure it with your bot token.
 Create a config.json inside the root folder of the project and fill it with the following.
 ```JSON
 {
@@ -29,7 +29,7 @@ Create a config.json inside the root folder of the project and fill it with the 
 - **u/Deafboy91** for making an awesome Online Builder for MK8DX and using it as insperation for the bar designs
 
 ### Contibution
-If you want to contribute to this project, you can willing to do so by opening a pull request.
+If you want to contribute to this project, you can do so by opening a pull request.
 ## Screenshots
 ###  Simple solo build
 ![](https://cdn.discordapp.com/attachments/419319912104984577/1084130243800997918/build.png)  
