@@ -55,11 +55,13 @@ public class BuildStatGenerator
             case "catpeach":
             case "inklingfemale":
             case "villagerfemale":
+            case "diddykong":
                 return Characters[6];
             case "peach":
             case "daisy":
             case "yoshi":
             case "birdo":
+            case "peachette":
                 return Characters[7];
             case "tanookimario":
             case "inklingmale":
@@ -73,9 +75,10 @@ public class BuildStatGenerator
             case "iggy":
             case "kamek":
                 return Characters[10];
-            case "Rosalina":
+            case "rosalina":
             case "kingboo":
             case "link":
+            case "pauline":
                 return Characters[11];
             case "metalmario":
             case "goldmario":
@@ -89,6 +92,7 @@ public class BuildStatGenerator
             case "wario":
             case "drybowser":
             case "heavymii":
+            case "funkykong":
                 return Characters[14];
             case "bowser":
             case "morton":
@@ -268,7 +272,7 @@ public class BuildStatGenerator
             new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4.25, 2.75), // Tanuki Mario, Inkling Boy, Male Villager
             new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4, 3.25), // Mario, Ludwig, Medium Mii
             new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.25), // Luigi, Iggy, Kamek
-            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link 
+            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link
             new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 3.25), // Metal Mario, Gold Mario, Pink Gold Peach
             new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 3.5), // Waluigi, DK, Roy, Wiggler
             new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 3.75), // Wario, Dry Bowser, Heavy Mii
