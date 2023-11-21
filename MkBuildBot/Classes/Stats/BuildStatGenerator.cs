@@ -267,15 +267,15 @@ public class BuildStatGenerator
             new("LightChar4", 3, 2.75, 3.25, 3.5, 4.25, 2.5, 4.25, 4.25, 3.75, 4.25, 3.5, 4.25, 3.25), // Toadette, Wendy, Isabelle
             new("LightChar6", 3, 2.75, 3.25, 3.5, 4, 2.5, 4.5, 4.5, 4, 4.5, 4.25, 4.25, 3.5), // Koopa Troopa, Lakitu, Bowser Jr.
             new("LightChar6", 3.25, 3, 3.5, 3.75, 4, 2.75, 4.25, 4.25, 3.75, 4.25, 4, 4.25, 3.25), // Toad, Shy Guy, Larry
-            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4.25, 3.25), // Cat Peach, Inkling Girl, Female Villager
-            new("MediumChar2", 3.25, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25, 2.75), // Peach, Daisy, Yoshi, Birdo
+            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4.25, 3.25), // Cat Peach, Inkling Girl, Female Villager, Diddy Kong
+            new("MediumChar2", 3.25, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25, 2.75), // Peach, Daisy, Yoshi, Birdo, Peachette
             new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4.25, 2.75), // Tanuki Mario, Inkling Boy, Male Villager
             new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4, 3.25), // Mario, Ludwig, Medium Mii
             new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.25), // Luigi, Iggy, Kamek
-            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link
+            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link, Pauline
             new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 3.25), // Metal Mario, Gold Mario, Pink Gold Peach
             new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 3.5), // Waluigi, DK, Roy, Wiggler
-            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 3.75), // Wario, Dry Bowser, Heavy Mii
+            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 3.75), // Wario, Dry Bowser, Heavy Mii, Funky Kong
             new("HeavyChar5", 4.75, 4.5, 5, 5.25, 3, 4.5, 2.5, 2.5, 2, 2.5, 3, 3.25, 4), // Bowser, Morton
             new("HeavyChar6", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 4) // Petey Piranha
         };
