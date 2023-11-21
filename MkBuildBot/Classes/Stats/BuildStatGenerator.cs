@@ -261,23 +261,23 @@ public class BuildStatGenerator
     {
         return new List<PartStat>
         {
-            new("LightChar1", 2.5, 2.25, 2.75, 3, 4, 2, 5, 5, 4.5, 5, 4.25, 4.5, 4), // Baby Peach, Baby Daisy
-            new("LightChar2", 2.5, 2.25, 2.75, 3, 4.25, 2, 4.75, 4.75, 4.25, 4.75, 3.75, 4.5, 4), // Baby Rosalina, Lemmi
-            new("LightChar3", 2.75, 2.5, 3, 3.25, 4.25, 2.25, 4.5, 4.5, 4, 4.5, 4, 4.5, 3.75), // Baby Mario, Baby Luigi, Dry Bones, Light Mii
-            new("LightChar4", 3, 2.75, 3.25, 3.5, 4.25, 2.5, 4.25, 4.25, 3.75, 4.25, 3.5, 4.25, 3.25), // Toadette, Wendy, Isabelle
-            new("LightChar6", 3, 2.75, 3.25, 3.5, 4, 2.5, 4.5, 4.5, 4, 4.5, 4.25, 4.25, 3.5), // Koopa Troopa, Lakitu, Bowser Jr.
-            new("LightChar6", 3.25, 3, 3.5, 3.75, 4, 2.75, 4.25, 4.25, 3.75, 4.25, 4, 4.25, 3.25), // Toad, Shy Guy, Larry
-            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4.25, 3.25), // Cat Peach, Inkling Girl, Female Villager, Diddy Kong
-            new("MediumChar2", 3.25, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25, 2.75), // Peach, Daisy, Yoshi, Birdo, Peachette
-            new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4.25, 2.75), // Tanuki Mario, Inkling Boy, Male Villager
-            new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4, 3.25), // Mario, Ludwig, Medium Mii
-            new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.25), // Luigi, Iggy, Kamek
-            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.5), // Rosalina, King Boo, Link, Pauline
-            new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 3.25), // Metal Mario, Gold Mario, Pink Gold Peach
-            new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 3.5), // Waluigi, DK, Roy, Wiggler
-            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 3.75), // Wario, Dry Bowser, Heavy Mii, Funky Kong
-            new("HeavyChar5", 4.75, 4.5, 5, 5.25, 3, 4.5, 2.5, 2.5, 2, 2.5, 3, 3.25, 4), // Bowser, Morton
-            new("HeavyChar6", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 4) // Petey Piranha
+            new("LightChar1", 2.5, 2.25, 2.75, 3, 4, 2, 5, 5, 4.5, 5, 4.25, 4.5, 4.25), // Baby Peach, Baby Daisy
+            new("LightChar2", 2.5, 2.25, 2.75, 3, 4.25, 2, 4.75, 4.75, 4.25, 4.75, 3.75, 4.5, 4.25), // Baby Rosalina, Lemmi
+            new("LightChar3", 2.75, 2.5, 3, 3.25, 4.25, 2.25, 4.5, 4.5, 4, 4.5, 4, 4.5, 4), // Baby Mario, Baby Luigi, Dry Bones, Light Mii
+            new("LightChar4", 3, 2.75, 3.25, 3.5, 4.25, 2.5, 4.25, 4.25, 3.75, 4.25, 3.5, 4.25, 3.5), // Toadette, Wendy, Isabelle
+            new("LightChar5", 3, 2.75, 3.25, 3.5, 4, 2.5, 4.5, 4.5, 4, 4.5, 4.25, 4.25, 3.75), // Koopa Troopa, Lakitu, Bowser Jr.
+            new("LightChar6", 3.25, 3, 3.5, 3.75, 4, 2.75, 4.25, 4.25, 3.75, 4.25, 4, 4.25, 3.5), // Toad, Shy Guy, Larry
+            new("MediumChar1", 3.5, 3.25, 3.75, 4, 4, 2.75, 4, 4, 3.5, 4, 3.75, 4.25, 3.5), // Cat Peach, Inkling Girl, Female Villager, Diddy Kong
+            new("MediumChar2", 3.75, 3.5, 4, 4.25, 3.75, 3, 3.75, 3.75, 3.25, 3.75, 3.75, 4.25, 3), // Peach, Daisy, Yoshi, Birdo, Peachette
+            new("MediumChar3", 3.75, 3.5, 4, 4.25, 3.75, 3.25, 3.75, 3.75, 3.25, 3.75, 3.25, 4.25, 3), // Tanuki Mario, Inkling Boy, Male Villager
+            new("MediumChar4", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.5, 3.5, 3, 3.5, 3.5, 4, 3.5), // Mario, Ludwig, Medium Mii
+            new("MediumChar5", 4, 3.75, 4.25, 4.5, 3.5, 3.5, 3.75, 3.75, 3.25, 3.75, 3.25, 4, 3.5), // Luigi, Iggy, Kamek
+            new("HeavyChar1", 4.25, 4, 4.5, 4.75, 3.25, 3.75, 3.25, 3.25, 2.75, 3.25, 3.75, 3.75, 3.75), // Rosalina, King Boo, Link, Pauline
+            new("HeavyChar2", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 3.5), // Metal Mario, Gold Mario, Pink Gold Peach
+            new("HeavyChar3", 4.5, 4.25, 4.75, 5, 3.25, 4, 3, 3, 2.5, 3, 3, 3.5, 3.75), // Waluigi, DK, Roy, Wiggler
+            new("HeavyChar4", 4.75, 4.5, 5, 5.25, 3, 4.25, 2.75, 2.75, 2.25, 2.75, 3.25, 3.25, 4), // Wario, Dry Bowser, Heavy Mii, Funky Kong
+            new("HeavyChar5", 4.75, 4.5, 5, 5.25, 3, 4.5, 2.5, 2.5, 2, 2.5, 3, 3.25, 4.25), // Bowser, Morton
+            new("HeavyChar6", 4.25, 4, 4.5, 4.75, 3.25, 4.5, 3.25, 3.25, 2.75, 3.25, 3.25, 3.5, 4.25) // Petey Piranha
         };
     }
 
@@ -336,7 +336,7 @@ public class BuildStatGenerator
             new("Tire1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), // Standard & Blue
             new("Tire2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.25), // GLA
 
-            new("Tire3", 0.25, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.5), // Mosnter & Hot Monster
+            new("Tire3", 0.25, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.5), // Monster & Hot Monster
             new("Tire4", 0.25, 0, -0.25, -0.5, -0.5, 0.5, -0.75, -0.75, -0.5, -0.5, 0.5, -0.25, 0.25), // Ancient
 
             new("Tire5", -0.5, -0.5, 0, 0, 0.5, -0.5, 0.25, 0.25, 0.25, 0.25, -0.25, 0.5, -0.75), // Roller & Azure Roller
@@ -350,11 +350,11 @@ public class BuildStatGenerator
 
             new("Tire10", -0.25, 0, -0.25, -0.25, 0.25, -0.5, 0, 0.25, 0, -0.25, -0.5, 0.25, -0.25), // Button & Leaf
 
-            new("Tire11", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.5, 0.25, -0.5, 0.75), // Offroad & Retro Offroad
+            new("Tire11", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.25, 0.25, -0.25, 0.5), // Offroad & Retro Offroad
             new("Tire12", 0.25, 0, 0.25, -0.5, -0.25, 0.25, -0.5, -0.25, -0.5, -0.5, 0.25, -0.5, 0.5), // TriForce
 
-            new("Tire13", -0.25, -0.25, -0.5, 0.25, 0, -0.25, -0.25, 0, -0.5, 0, 0.25, 0.25, 0), // Sponge
-            new("Tire14", -0.25, -0.25, -0.5, 0.25, 0, -0.25, -0.25, 0, -0.5, 0, 0.25, 0.25, 0.5) // Cushion
+            new("Tire13", -0.25, -0.25, -0.5, 0.25, 0, -0.25, -0.25, -0.25, -0.5, 0, 0.25, 0.25, 0), // Sponge
+            new("Tire14", -0.25, -0.25, -0.5, 0.25, 0, -0.25, -0.25, -0.25, -0.5, 0, 0.25, 0.25, 0.5) // Cushion
         };
     }
 
