@@ -81,9 +81,9 @@ public class Program
             case "gen-build":
                 var gameVersion = (long) command.Data.Options.First(x => x.Name == "game-version").Value;
                 var excludeInlineParam = (long) command.Data.Options.First(x => x.Name == "exclude-inline-bikes").Value;
-				var isDLCCharactersExcluded = (long)command.Data.Options.FirstOrDefault(x => x.Name == "amount").Value == 1;
-				var amount = (long) (command.Data.Options.FirstOrDefault(x => x.Name == "amount")?.Value ?? (long) 1);
-				var excludeInline = excludeInlineParam != 0; //!= => true | == => false
+                var isDLCCharactersExcluded = (long)command.Data.Options.FirstOrDefault(x => x.Name == "amount").Value == 1;
+                var amount = (long) (command.Data.Options.FirstOrDefault(x => x.Name == "amount")?.Value ?? (long) 1);
+                var excludeInline = excludeInlineParam != 0; //!= => true | == => false
 
                 await GenBuildCommand.ExecuteCommandAsync(command, (int) gameVersion, excludeInline, (int) amount);
 
