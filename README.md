@@ -24,7 +24,7 @@ Once you have the token, create a config.json file inside the root folder of the
 }
 ```
 
-To invite the bot to a server, you'll need to generate a OAuth2 URL. After selecting the bot you want to add from the [Discord Developer Portal](https://discord.com/developers/applications), click on "OAuth2", then click "URL Generator". Next, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope. Under "Bot Permissions", you'll need to select "Read Messages/View Channels", "Send Messages", and "Embed Links". At the very bottom, there will be a link that you can navigate to that will let you choose which server you want the bot to join.
+In order to test the bot locally, you'll need to add it to a test server. To do that, you'll need to generate a OAuth2 URL. After selecting the bot you want to add from the [Discord Developer Portal](https://discord.com/developers/applications), click on "OAuth2", then click "URL Generator". Next, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope. Under "Bot Permissions", you'll need to select "Read Messages/View Channels", "Send Messages", and "Embed Links". At the very bottom, there will be a link that you can navigate to that will let you choose the test server you want the bot to join.
 
 ### Special Thanks
 - **SourRaindrop** for making some of the assets and helping in general
