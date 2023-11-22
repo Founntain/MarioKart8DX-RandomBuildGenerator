@@ -9,7 +9,6 @@ namespace MkBuildBot.Classes;
 
 public class CommandRegisterer
 {
-    private const ulong GUILD_ID = 263840330586128384;
     private readonly DiscordSocketClient _client;
 
     public CommandRegisterer(DiscordSocketClient client)
@@ -53,6 +52,12 @@ public class CommandRegisterer
                 .AddChoice("No", 0)
                 .AddChoice("Yes", 1)
                 .WithType(ApplicationCommandOptionType.Integer))
+            .AddOption(new SlashCommandOptionBuilder {IsRequired = true}
+                .WithName("exclude-dlc-characters")
+                .WithDescription("Do you want to exclude characters introduced with the Booster Course Pass?")
+                .AddChoice("No", 0)
+                .AddChoice("Yes", 1)
+                .WithType(ApplicationCommandOptionType.Integer))
             .AddOption(new SlashCommandOptionBuilder {IsRequired = false}
                 .WithName("amount")
                 .WithDescription("How many builds do you want to generate?")
@@ -69,38 +74,16 @@ public class CommandRegisterer
         await RegisterGenBuildCommand();
     }
 
-    private async Task RegisterCommand(SlashCommandBuilder command, bool registerCommandGlobally = true)
+    private async Task RegisterCommand(SlashCommandBuilder command)
     {
-        if (registerCommandGlobally)
-            await RegisterCommandGlobally(command);
-        else
-            await RegisterCommandOnGuild(command);
+        await RegisterCommandGlobally(command);
     }
 
     private async Task RegisterCommandGlobally(SlashCommandBuilder command)
     {
         try
         {
-            var guild = _client.GetGuild(GUILD_ID);
-
             await _client.CreateGlobalApplicationCommandAsync(command.Build());
-            await guild.CreateApplicationCommandAsync(command.Build());
-        }
-        catch (HttpException ex)
-        {
-            var json = JsonConvert.SerializeObject(ex.Errors, Formatting.Indented);
-
-            Console.WriteLine(json);
-        }
-    }
-
-    private async Task RegisterCommandOnGuild(SlashCommandBuilder command)
-    {
-        try
-        {
-            var guild = _client.GetGuild(GUILD_ID);
-
-            await guild.CreateApplicationCommandAsync(command.Build());
         }
         catch (HttpException ex)
         {
