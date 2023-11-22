@@ -1,7 +1,7 @@
 # Mario Kart 8 Deluxe Random Build Generator
 
 This discord bot creates a random build containing a set of 1 character, 1 body, 1 tire and 1 glider and also displays the stats of this build.  
-It's also possible to create multiple builds at the same time, up to 12. 
+It's also possible to create up to 12 builds at the same time. 
 > Please keep in mind that statistics only get rendered for 1 build and **not** for multiple
 
 ## Sounds cool. How can I add this bot to my server?
@@ -17,19 +17,14 @@ Have fun 😃
 ## Building the bot by yourself
 If, for whatever reason you want to build the bot by yourself, you can do so by pulling this repository and configuring it with your bot token. Your bot token can be found in the [Discord Developer Portal](https://discord.com/developers/applications) under your bot's name, select the "Bot" option under settings and then you should be able to see it underneath the bots username.
 
-If you want to build a brand new bot, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope.
-Under "Bot Permissions", you'll need to enable "Read Messages/View Channels", "Send Messages", and "Embed Links".
-
-Once thats finished, go into your code and create a config.json file inside the root folder of the project and fill it with the following:
+Once you have the token, create a config.json file inside the root folder of the project and fill it with the following:
 ```JSON
 {
   "Token": "<your-bot-token-here>"
 }
 ```
 
-If you want to test the bot on a specific server, you will need to replace the default GUID with your discord server ID that you want to test it on. This can be found when you right click on the server icon on left server menu. *(You will need to have [Developer Mode enabled](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-) for you to be able to see this id.)* 
-
-You can find the default GUID on line 11 in the "CommandRegisterer" class in the "Classes" folder.
+To invite the bot to a server, you'll need to generate a OAuth2 URL. After selecting the bot you want to add from the [Discord Developer Portal](https://discord.com/developers/applications), click on "OAuth2", then click "URL Generator". Next, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope. Under "Bot Permissions", you'll need to select "Read Messages/View Channels", "Send Messages", and "Embed Links". At the very bottom, there will be a link that you can navigate to that will let you choose which server you want the bot to join.
 
 ### Special Thanks
 - **SourRaindrop** for making some of the assets and helping in general
