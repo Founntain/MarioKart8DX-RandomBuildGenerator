@@ -7,8 +7,7 @@ namespace MkBuildBot.Commands;
 
 public static class GenBuildCommand
 {
-    public static async Task ExecuteCommandAsync(SocketSlashCommand command, int genType, bool excludeInline,
-        int amount = 1)
+    public static async Task ExecuteCommandAsync(SocketSlashCommand command, int genType, bool excludeInline, bool excludeDlcChars, int amount = 1)
     {
         var buildGenerator = new BuildGenerator();
 
@@ -22,7 +21,7 @@ public static class GenBuildCommand
         {
             case 0:
             {
-                using var stream = await buildGenerator.Generate(amount, false, excludeInline);
+                using var stream = await buildGenerator.Generate(amount, false, excludeInline, excludeDlcChars);
 
                 await command.RespondWithFileAsync(
                     stream,
@@ -40,7 +39,7 @@ public static class GenBuildCommand
             }
             case 1:
             {
-                using var stream = await buildGenerator.Generate(amount, true, excludeInline);
+                using var stream = await buildGenerator.Generate(amount, true, excludeInline, excludeDlcChars);
 
                 await command.RespondWithFileAsync(
                     stream,

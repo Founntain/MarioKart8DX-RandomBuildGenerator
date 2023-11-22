@@ -14,7 +14,7 @@ public sealed class BuildGenerator
     private readonly int _defaultHeight = 128;
     private readonly int _defaultPartSize = 200;
 
-    public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false)
+    public async Task<MemoryStream> Generate(int amount, bool wiiU = false, bool excludeInline = false, bool excludeDlcChars = false)
     {
         return await Task.Run(() =>
         {
@@ -203,7 +203,7 @@ public sealed class BuildGenerator
         });
     }
 
-    private string GetRandomImageFromDirectory(string dir, bool wiiU, bool excludeInline)
+    private string GetRandomImageFromDirectory(string dir, bool wiiU, bool excludeInline, bool excludeDlcChars)
     {
         var files = Directory.GetFiles(dir);
         var random = new Random();
@@ -213,20 +213,26 @@ public sealed class BuildGenerator
             var value = random.Next(0, files.Length - 1);
             var part = files[value];
 
-            if (!wiiU && !excludeInline)
+            if (!wiiU && !excludeInline && !excludeDlcChars)
                 return part;
 
             var pathToCheck = Path.GetFileName(part);
 
             if (wiiU)
             {
-                if (GetDeluxeOnlyParts().Any(x => x.ToLower() == pathToCheck))
+                if (GetDeluxeOnlyParts().Any(x => string.Equals(x, pathToCheck, StringComparison.OrdinalIgnoreCase)))
                     continue;
             }
 
             if (excludeInline)
             {
-                if (GetInlineBikes().Any(x => x.ToLower() == pathToCheck))
+                if (GetInlineBikes().Any(x => string.Equals(x, pathToCheck, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+            }
+
+            if (excludeDlcChars)
+            {
+                if (GetDlcCharacters().Any(x => string.Equals(x, pathToCheck, StringComparison.OrdinalIgnoreCase)))
                     continue;
             }
 
@@ -234,24 +240,24 @@ public sealed class BuildGenerator
         }
     }
 
-    private string GetRandomCharacter(bool wiiU = false, bool excludeInline = false)
+    private string GetRandomCharacter(bool wiiU = false, bool excludeInline = false, bool excludeDlcCharacters = false)
     {
-        return GetRandomImageFromDirectory("resources/chars", wiiU, excludeInline);
+        return GetRandomImageFromDirectory("resources/chars", wiiU, excludeInline, excludeDlcCharacters);
     }
 
-    private string GetRandomVehicle(bool wiiU = false, bool excludeInline = false)
+    private string GetRandomVehicle(bool wiiU = false, bool excludeInline = false, bool excludeDlcCharacters = false)
     {
-        return GetRandomImageFromDirectory("resources/parts/vehicles", wiiU, excludeInline);
+        return GetRandomImageFromDirectory("resources/parts/vehicles", wiiU, excludeInline, excludeDlcCharacters);
     }
 
-    private string GetRandomTire(bool wiiU = false, bool excludeInline = false)
+    private string GetRandomTire(bool wiiU = false, bool excludeInline = false, bool excludeDlcCharacters = false)
     {
-        return GetRandomImageFromDirectory("resources/parts/tires", wiiU, excludeInline);
+        return GetRandomImageFromDirectory("resources/parts/tires", wiiU, excludeInline, excludeDlcCharacters);
     }
 
-    private string GetRandomGlider(bool wiiU = false, bool excludeInline = false)
+    private string GetRandomGlider(bool wiiU = false, bool excludeInline = false, bool excludeDlcCharacters = false)
     {
-        return GetRandomImageFromDirectory("resources/parts/gliders", wiiU, excludeInline);
+        return GetRandomImageFromDirectory("resources/parts/gliders", wiiU, excludeInline, excludeDlcCharacters);
     }
 
     private ICollection<string> GetDeluxeOnlyParts()
@@ -279,6 +285,21 @@ public sealed class BuildGenerator
     }
 
     private ICollection<string> GetInlineBikes()
+    {
+        return new List<string>
+        {
+            "birdo.png",
+            "petey.png",
+            "kamek.png",
+            "wiggler.png",
+            "pauline.png",
+            "funkykong.png",
+            "diddykong.png",
+            "peachette.png"
+        };
+    }
+
+    private ICollection<string> GetDlcCharacters()
     {
         return new List<string>
         {

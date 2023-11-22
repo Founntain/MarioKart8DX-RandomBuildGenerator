@@ -53,6 +53,12 @@ public class CommandRegisterer
                 .AddChoice("No", 0)
                 .AddChoice("Yes", 1)
                 .WithType(ApplicationCommandOptionType.Integer))
+            .AddOption(new SlashCommandOptionBuilder {IsRequired = true}
+                .WithName("exclude-dlc-characters")
+                .WithDescription("Do you want to exclude characters introduced with the Booster Course Pass?")
+                .AddChoice("No", 0)
+                .AddChoice("Yes", 1)
+                .WithType(ApplicationCommandOptionType.Integer))
             .AddOption(new SlashCommandOptionBuilder {IsRequired = false}
                 .WithName("amount")
                 .WithDescription("How many builds do you want to generate?")
