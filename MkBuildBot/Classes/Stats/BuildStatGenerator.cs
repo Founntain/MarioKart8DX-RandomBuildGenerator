@@ -5,13 +5,13 @@ namespace MkBuildBot.Classes.Stats;
 
 public class BuildStatGenerator
 {
-    public List<PartStat> Characters => GetCharacterBases();
+    private List<PartStat> Characters => GetCharacterBases();
 
-    public List<PartStat> Bodies => GetBodyBases();
+    private List<PartStat> Bodies => GetBodyBases();
 
-    public List<PartStat> Tires => GetTireBases();
+    private List<PartStat> Tires => GetTireBases();
 
-    public List<PartStat> Gliders => GetGliderBases();
+    private List<PartStat> Gliders => GetGliderBases();
 
     public Build GetBuild(string character, string body, string tire, string glider)
     {
@@ -257,7 +257,7 @@ public class BuildStatGenerator
 
     #region Base Stats
 
-    private List<PartStat> GetCharacterBases()
+    private static List<PartStat> GetCharacterBases()
     {
         return new List<PartStat>
         {
@@ -358,7 +358,7 @@ public class BuildStatGenerator
         };
     }
 
-    private List<PartStat> GetGliderBases()
+    private static List<PartStat> GetGliderBases()
     {
         return new List<PartStat>
         {
