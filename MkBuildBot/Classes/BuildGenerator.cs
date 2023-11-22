@@ -288,6 +288,18 @@ public sealed class BuildGenerator
     {
         return new List<string>
         {
+            "comet.png",
+            "sportbike.png",
+            "jetbike.png",
+            "yoshibike.png",
+            "mastercycle.png"
+        };
+    }
+
+    private ICollection<string> GetDlcCharacters()
+    {
+        return new List<string>
+        {
             "birdo.png",
             "petey.png",
             "kamek.png",
@@ -296,18 +308,6 @@ public sealed class BuildGenerator
             "funkykong.png",
             "diddykong.png",
             "peachette.png"
-        };
-    }
-
-    private ICollection<string> GetDlcCharacters()
-    {
-        return new List<string>
-        {
-            "comet.png",
-            "sportbike.png",
-            "jetbike.png",
-            "yoshibike.png",
-            "mastercycle.png"
         };
     }
 
