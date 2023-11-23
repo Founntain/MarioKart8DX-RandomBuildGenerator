@@ -2,6 +2,8 @@
 
 This discord bot creates a random build containing a set of 1 character, 1 body, 1 tire and 1 glider and also displays the stats of this build.  
 It's also possible to create up to 12 builds at the same time. 
+
+> [!NOTE]\
 > Please keep in mind that statistics only get rendered for 1 build and **not** for multiple
 
 ## Sounds cool. How can I add this bot to my server?
@@ -23,8 +25,8 @@ Once you have the token, create a config.json file inside the root folder of the
   "Token": "<your-bot-token-here>"
 }
 ```
-
-In order to test the bot locally, you'll need to add it to a test server. To do that, you'll need to generate a OAuth2 URL. After selecting the bot you want to add from the [Discord Developer Portal](https://discord.com/developers/applications), click on "OAuth2", then click "URL Generator". Next, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope. Under "Bot Permissions", you'll need to select "Read Messages/View Channels", "Send Messages", and "Embed Links". At the very bottom, there will be a link that you can navigate to that will let you choose the test server you want the bot to join.
+> [!IMPORTANT]\
+> In order to test the bot locally, you'll need to add it to a test server. To do that, you'll need to generate a OAuth2 URL. After selecting the bot you want to add from the [Discord Developer Portal](https://discord.com/developers/applications), click on "OAuth2", then click "URL Generator". Next, you'll need to give the bot the "Bot" and "Applications.Commands" permissions under scope. Under "Bot Permissions", you'll need to select "Read Messages/View Channels", "Send > Messages", and "Embed Links". At the very bottom, there will be a link that you can navigate to that will let you choose the test server you want the bot to join.
 
 ### Special Thanks
 - **SourRaindrop** for making some of the assets and helping in general
